@@ -1,26 +1,32 @@
 package programa;
 
-
-
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicButtonUI;
 
 import java.sql.SQLException;
 import javax.swing.JLabel;
 import java.awt.Font;
 import java.awt.Frame;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JComponent;
+
 import java.awt.event.ActionListener;
 import java.security.Principal;
 import java.awt.event.ActionEvent;
-
+import java.awt.Color;
+import javax.swing.UIManager;
+import javax.swing.JSeparator;
 
 public class PokerGUI extends JFrame {
 
@@ -60,53 +66,88 @@ public class PokerGUI extends JFrame {
 		
 		
 		
-		JButton btn_login = new JButton("Log in/Registrarse");
-		btn_login.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) 
-			{
-				Formulario_Insertar f1 = new Formulario_Insertar();
-				f1.setVisible(true);
-			}
+		JButton btn_login = new JButton("Log in");
+		btn_login.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_login.setBackground(new Color(196, 49, 25));
+		btn_login.setForeground(Color.WHITE);
+		btn_login.setBounds(133, 274, 228, 78);
+
+		// Redondear el botón y eliminar bordes
+		btn_login.setFocusPainted(false);
+		btn_login.setBorderPainted(false);
+		btn_login.setContentAreaFilled(false);
+		btn_login.setOpaque(false);
+
+		// Dibujar fondo redondeado
+		btn_login.setUI(new BasicButtonUI() {
+		    @Override
+		    public void paint(Graphics g, JComponent c) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2.setColor(btn_login.getBackground());
+		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+		        g2.dispose();
+		        super.paint(g, c);
+		    }
 		});
-		btn_login.setBounds(168, 424, 143, 23);
+
+		// Acción del botón
+		btn_login.addActionListener(new ActionListener() {
+		    public void actionPerformed(ActionEvent e) {
+		        Formulario_Insertar f1 = new Formulario_Insertar();
+		        f1.setVisible(true);
+		    }
+		});
+
 		contentPane.add(btn_login);
 		
 		
 				
 		JLabel lblNewLabel = new JLabel("TightPoker");
-		lblNewLabel.setBounds(151, 55, 165, 68);
-		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 38));
+		lblNewLabel.setForeground(new Color(235, 227, 194));
+		lblNewLabel.setBounds(133, 95, 228, 95);
+		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
 		contentPane.add(lblNewLabel);
 		
-		
-		
-		
-		JButton btn_conectarse = new JButton("BBDD");
-		btn_conectarse.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				try {
-					bd.conectar();
-				} catch (SQLException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-				
-			}
+		JButton btn_register = new JButton("Register");
+		btn_register.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_register.setForeground(Color.WHITE);
+		btn_register.setBackground(new Color(196, 49, 25));
+		btn_register.setBounds(133, 412, 228, 78);
+
+		// Hacer el botón redondeado y sin bordes visibles
+		btn_register.setFocusPainted(false);
+		btn_register.setBorderPainted(false);
+		btn_register.setContentAreaFilled(false);
+		btn_register.setOpaque(false);
+
+		// Dibujar el fondo redondeado
+		btn_register.setUI(new BasicButtonUI() {
+		    @Override
+		    public void paint(Graphics g, JComponent c) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2.setColor(btn_register.getBackground());
+		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+		        g2.dispose();
+		        super.paint(g, c);
+		    }
 		});
-		btn_conectarse.setBounds(114, 315, 89, 23);
-		contentPane.add(btn_conectarse);
+
+		contentPane.add(btn_register);
 		
-		JButton btnNewButton = new JButton("New button");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				System.exit(0);
-			}
-		});
-		btnNewButton.setBounds(246, 342, 89, 23);
-		contentPane.add(btnNewButton);
+		JSeparator separator = new JSeparator();
+		separator.setBackground(new Color(255, 255, 255));
+		separator.setBounds(108, 380, 282, 2);
+		contentPane.add(separator);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Downloads\\fondoPoker.png"));
+		JPanel panel = new JPanel();
+		panel.setBorder(null);
+		panel.setBounds(77, 369, 21, 23);
+		contentPane.add(panel);
+		panel.setLayout(null);
+		
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Desktop\\Tightpoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 
