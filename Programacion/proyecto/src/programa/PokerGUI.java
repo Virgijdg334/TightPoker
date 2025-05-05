@@ -147,7 +147,7 @@ public class PokerGUI extends JFrame {
 		contentPane.add(panel);
 		panel.setLayout(null);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Desktop\\Tightpoker\\imagenes\\fondoPoker.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 
