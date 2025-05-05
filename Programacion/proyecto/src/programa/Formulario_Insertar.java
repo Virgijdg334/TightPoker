@@ -65,5 +65,9 @@ public class Formulario_Insertar extends JFrame {
 		JButton btn_formulario = new JButton("Continuar");
 		btn_formulario.setBounds(170, 210, 89, 23);
 		contentPane.add(btn_formulario);
+		
+		JButton btnNewButton = new JButton("New dasdawf23r4");
+		btnNewButton.setBounds(287, 170, 89, 23);
+		contentPane.add(btnNewButton);
 	}
 }
