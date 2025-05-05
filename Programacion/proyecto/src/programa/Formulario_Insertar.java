@@ -48,13 +48,13 @@ public class Formulario_Insertar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblNewLabel_2 = new JLabel("Nombre Completo");
+		JLabel lblNewLabel_2 = new JLabel("d");
 		lblNewLabel_2.setForeground(new Color(235, 227, 194));
 		lblNewLabel_2.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
 		lblNewLabel_2.setBounds(83, 396, 124, 14);
 		contentPane.add(lblNewLabel_2);
 		
-		JLabel lblNewLabel_1 = new JLabel("Nombre Completo");
+		JLabel lblNewLabel_1 = new JLabel("Apellidos");
 		lblNewLabel_1.setForeground(new Color(235, 227, 194));
 		lblNewLabel_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
 		lblNewLabel_1.setBounds(83, 345, 124, 14);
@@ -80,6 +80,18 @@ public class Formulario_Insertar extends JFrame {
 		contentPane.add(lblDni);
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
 		
+		JLabel lblNewLabel_2_1 = new JLabel("Nombre Completo");
+		lblNewLabel_2_1.setForeground(new Color(235, 227, 194));
+		lblNewLabel_2_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
+		lblNewLabel_2_1.setBounds(83, 446, 124, 14);
+		contentPane.add(lblNewLabel_2_1);
+		
+		JLabel lblNewLabel_2_2 = new JLabel("Nombre Completo");
+		lblNewLabel_2_2.setForeground(new Color(235, 227, 194));
+		lblNewLabel_2_2.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
+		lblNewLabel_2_2.setBounds(83, 497, 124, 14);
+		contentPane.add(lblNewLabel_2_2);
+		
 		txt_nombre = new JTextField();
 		txt_nombre.setBounds(224, 227, 181, 20);
 		contentPane.add(txt_nombre);
@@ -97,6 +109,8 @@ public class Formulario_Insertar extends JFrame {
 		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
+		
+
 		
 		setUndecorated(true);
 
