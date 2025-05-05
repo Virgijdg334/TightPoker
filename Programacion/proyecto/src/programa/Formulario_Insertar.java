@@ -65,5 +65,9 @@ public class Formulario_Insertar extends JFrame {
 		JButton btn_formulario = new JButton("Continuar");
 		btn_formulario.setBounds(170, 210, 89, 23);
 		contentPane.add(btn_formulario);
+		
+		JLabel lblNewLabel_1 = new JLabel("Poronga");
+		lblNewLabel_1.setBounds(183, 11, 46, 14);
+		contentPane.add(lblNewLabel_1);
 	}
 }
