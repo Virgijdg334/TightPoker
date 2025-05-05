@@ -105,11 +105,15 @@ public class PokerGUI extends JFrame {
 				
 		JLabel lblNewLabel = new JLabel("TightPoker");
 		lblNewLabel.setForeground(new Color(235, 227, 194));
-		lblNewLabel.setBounds(133, 95, 228, 95);
+		lblNewLabel.setBounds(133, 66, 228, 95);
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
 		contentPane.add(lblNewLabel);
 		
 		JButton btn_register = new JButton("Register");
+		btn_register.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
 		btn_register.setFont(new Font("Tahoma", Font.BOLD, 24));
 		btn_register.setForeground(Color.WHITE);
 		btn_register.setBackground(new Color(196, 49, 25));
