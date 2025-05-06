@@ -1,0 +1,1 @@
+INDEX VERSION 1.134+C:\Users\Alumno1\Documents\TightPoker\Programacion\proyecto\.metadata\.plugins\org.eclipse.jdt.core
