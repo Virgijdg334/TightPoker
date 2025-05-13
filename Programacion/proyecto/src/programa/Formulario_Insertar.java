@@ -188,12 +188,7 @@ public class Formulario_Insertar extends JFrame {
 		btn_formulario.setForeground(Color.WHITE);
 		btn_formulario.setBounds(167, 582, 141, 37);
 		contentPane.add(btn_formulario);
-		
-<<<<<<< HEAD
-		JLabel lblNewLabel_1 = new JLabel("Poronga");
-		lblNewLabel_1.setBounds(183, 11, 46, 14);
-		contentPane.add(lblNewLabel_1);
-=======
+
 		btn_formulario.setFocusPainted(false);
 		btn_formulario.setBorderPainted(false);
 		btn_formulario.setContentAreaFilled(false);
@@ -212,7 +207,7 @@ public class Formulario_Insertar extends JFrame {
 		    }
 		});
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Desktop\\Tightpoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
@@ -220,6 +215,5 @@ public class Formulario_Insertar extends JFrame {
 		
 		setUndecorated(true);
 
->>>>>>> ded9d295af8d51891638bd7a786de981ccdadf0a
 	}
 }
