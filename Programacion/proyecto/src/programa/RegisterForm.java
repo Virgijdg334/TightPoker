@@ -12,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -24,7 +25,7 @@ import javax.swing.JFormattedTextField;
 import java.text.ParseException;
 import javax.swing.JPasswordField;
 
-public class Formulario_Insertar extends JFrame {
+public class RegisterForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -45,7 +46,7 @@ public class Formulario_Insertar extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Formulario_Insertar frame = new Formulario_Insertar();
+					RegisterForm frame = new RegisterForm();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -57,7 +58,7 @@ public class Formulario_Insertar extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public Formulario_Insertar() {
+	public RegisterForm() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 484, 743);
 		contentPane = new JPanel();
@@ -181,8 +182,69 @@ public class Formulario_Insertar extends JFrame {
 		JButton btn_formulario = new JButton("Registrarse");
 		btn_formulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-			}
+				// Obtener datos del formulario
+		        String nombre = textField_nombre.getText().trim();
+		        String apellidos = textField_apellidos.getText().trim();
+		        String nombreUsuario = textField_nombre_usuario.getText().trim();
+		        String contraseña = new String(passwordField.getPassword());
+		        String telefono = textField_telefono.getText().trim();
+		        String dni = textField_dni.getText().trim();
+		        String codigoPostal = textField_codigo_postal.getText().trim();
+		        // NOTA: campoFecha se añadió directamente con add() pero no está como atributo.
+		        // Puedes declararlo como atributo si necesitas el valor.
+
+		        // Validación básica
+		        if (nombre.isEmpty() || apellidos.isEmpty() || nombreUsuario.isEmpty() || contraseña.isEmpty()) {
+		            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos obligatorios.");
+		            return;
+		        }
+
+		        if (!CheckBox_Terminos.isSelected()) {
+		            JOptionPane.showMessageDialog(null, "Debes aceptar los Términos y Condiciones.");
+		            return;
+		        }
+
+		        if (codigoPostal.length() > 5) {
+		        	JOptionPane.showMessageDialog(null, "Introduce un codigo postal valido");
+		        	return;
+		        }
+		        
+		        // Aquí iría la lógica para insertar los datos en la base de datos
+		        try {
+		            // Establecer conexión a la base de datos
+		            // Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/miBD", "usuario", "contraseña");
+
+		            // Preparar la sentencia SQL
+		            // String sql = "INSERT INTO usuarios (nombre, apellidos, nombre_usuario, contraseña, telefono, dni, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?)";
+		            // PreparedStatement stmt = conn.prepareStatement(sql);
+		            // stmt.setString(1, nombre);
+		            // stmt.setString(2, apellidos);
+		            // stmt.setString(3, nombreUsuario);
+		            // stmt.setString(4, contraseña);
+		            // stmt.setString(5, telefono);
+		            // stmt.setString(6, dni);
+		            // stmt.setString(7, codigoPostal);
+		            // stmt.executeUpdate();
+
+		            // Simulación de registro exitoso
+		            JOptionPane.showMessageDialog(null, "¡Registro exitoso!");
+		            // Limpiar campos después del registro
+		            textField_nombre.setText("");
+		            textField_apellidos.setText("");
+		            textField_nombre_usuario.setText("");
+		            passwordField.setText("");
+		            textField_telefono.setText("");
+		            textField_dni.setText("");
+		            textField_codigo_postal.setText("");
+		            CheckBox_Terminos.setSelected(false);
+
+		        } catch (Exception ex) {
+		            // Manejo de errores
+		            JOptionPane.showMessageDialog(null, "Error durante el registro: " + ex.getMessage());
+		        }
+		    }
 		});
+			
 		btn_formulario.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btn_formulario.setBackground(new Color(196, 49, 25));
 		btn_formulario.setForeground(Color.WHITE);
