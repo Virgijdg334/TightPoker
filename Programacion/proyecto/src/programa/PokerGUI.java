@@ -97,11 +97,7 @@ public class PokerGUI extends JFrame {
 								    }
 								});
 										
-										JButton btn_register = new JButton("Register");
-										btn_register.addActionListener(new ActionListener() {
-											public void actionPerformed(ActionEvent e) {
-											}
-										});
+
 										
 										JPanel panelRombo_1 = new JPanel() {
 											protected void paintComponent(Graphics g) {
@@ -119,7 +115,7 @@ public class PokerGUI extends JFrame {
 											}
 										};
 										panelRombo_1.setOpaque(false);
-										panelRombo_1.setBounds(393, 365, 30, 30);
+										panelRombo_1.setBounds(405, 370, 20, 20);
 										contentPane.add(panelRombo_1);
 										
 										// Panel con rombo personalizado
@@ -139,14 +135,23 @@ public class PokerGUI extends JFrame {
 												g2.fillPolygon(xPoints, yPoints, 4);
 											}
 										};
+										panelRombo.setBackground(new Color(128, 64, 0));
 										panelRombo.setOpaque(false);
-										panelRombo.setBounds(61, 365, 30, 30); // Posición del rombo
+										panelRombo.setBounds(61, 370, 20, 20); // Posición del rombo
 										contentPane.add(panelRombo);
 										
 										JSeparator separator = new JSeparator();
+										separator.setForeground(new Color(225, 227, 194));
 										separator.setBackground(new Color(225, 227, 194));
 										separator.setBounds(101, 380, 282, 3);
 										contentPane.add(separator);
+										
+										JButton btn_register = new JButton("Register");
+										btn_register.addActionListener(new ActionListener() {
+											public void actionPerformed(ActionEvent e) {
+											}
+										});
+										
 										btn_register.setFont(new Font("Tahoma", Font.BOLD, 24));
 										btn_register.setForeground(Color.WHITE);
 										btn_register.setBackground(new Color(196, 49, 25));

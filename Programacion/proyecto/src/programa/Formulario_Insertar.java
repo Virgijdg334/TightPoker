@@ -22,6 +22,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.text.ParseException;
+import javax.swing.JPasswordField;
 
 public class Formulario_Insertar extends JFrame {
 
@@ -32,10 +33,10 @@ public class Formulario_Insertar extends JFrame {
 	private final JLabel lblfondo = new JLabel("");
 	private JTextField textField_apellidos;
 	private JTextField textField_codigo_postal;
-	private JTextField textField_contraseña;
 	private JTextField textField_nacimiento;
 	private JTextField textField_telefono;
 	private JTextField textField_dni;
+	private JPasswordField passwordField;
 
 	/**
 	 * Launch the application.
@@ -65,6 +66,10 @@ public class Formulario_Insertar extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		passwordField = new JPasswordField();
+		passwordField.setBounds(218, 308, 181, 20);
+		contentPane.add(passwordField);
+		
 		JCheckBox CheckBox_Terminos = new JCheckBox("Aceptar Terminos y Condiciones");
 		CheckBox_Terminos.setForeground(new Color(255, 255, 255));
 		CheckBox_Terminos.setBackground(new Color(3, 65, 37));
@@ -81,11 +86,6 @@ public class Formulario_Insertar extends JFrame {
 		textField_codigo_postal.setColumns(10);
 		textField_codigo_postal.setBounds(218, 467, 181, 20);
 		contentPane.add(textField_codigo_postal);
-
-		textField_contraseña = new JTextField();
-		textField_contraseña.setColumns(10);
-		textField_contraseña.setBounds(218, 307, 181, 20);
-		contentPane.add(textField_contraseña);
 
 		try {
 		    MaskFormatter mascaraFecha = new MaskFormatter("##/##/####");
