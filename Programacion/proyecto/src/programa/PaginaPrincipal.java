@@ -99,14 +99,58 @@ public class PaginaPrincipal extends JFrame {
 			}
 		});
 		
-		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
+		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+		icon = new ImageIcon(image);
+
+		JButton botonRedondo = new JButton(icon) {
+		    @Override
+		    protected void paintComponent(Graphics g) {
+		        if (getModel().isArmed()) {
+		           
+		        } else {
+		            
+		        }
+		        g.fillOval(0, 0, getWidth(), getHeight());
+		        super.paintComponent(g);
+		    }
+
+		    @Override
+		    protected void paintBorder(Graphics g) {
+		       
+		        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+		    }
+
+		    @Override
+		    public boolean contains(int x, int y) {
+		        int radius = getWidth() / 2;
+		        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+		    }
+		};
+
+		botonRedondo.setBounds(213, 54, 60, 60);
+		botonRedondo.setContentAreaFilled(false);
+		botonRedondo.setFocusPainted(false);
+		botonRedondo.setBorderPainted(false);
+		botonRedondo.setForeground(new Color(235, 227, 194));
+		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+
+		getContentPane().add(botonRedondo);
+
+		JLabel lblSaldo = new JLabel("Saldo:");
+		lblSaldo.setForeground(new Color(235, 227, 194));
+		lblSaldo.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
+		lblSaldo.setBounds(167, 631, 60, 29);
+		contentPane.add(lblSaldo);
+		
+		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btn_Partidas_Cercanas.setForeground(Color.WHITE);
 		btn_Partidas_Cercanas.setBackground(new Color(196, 49, 25));	
 		btn_Partidas_Cercanas.setFocusPainted(false);
 		btn_Partidas_Cercanas.setBorderPainted(false);
 		btn_Partidas_Cercanas.setContentAreaFilled(false);
 		btn_Partidas_Cercanas.setOpaque(false);
-		btn_Partidas_Cercanas.setBounds(133, 407, 228, 78);		
+		btn_Partidas_Cercanas.setBounds(133, 415, 228, 78);		
 		
 		
 		// Dibujar el fondo redondeado
@@ -124,19 +168,19 @@ public class PaginaPrincipal extends JFrame {
 		
 		contentPane.add(btn_Partidas_Cercanas);
 
-		JButton btn_Torneos = new JButton("Partidas Cercanas");
+		JButton btn_Torneos = new JButton("Torneos");
 		btn_Torneos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_Torneos.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_Torneos.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btn_Torneos.setForeground(Color.WHITE);
 		btn_Torneos.setBackground(new Color(196, 49, 25));	
 		btn_Torneos.setFocusPainted(false);
 		btn_Torneos.setBorderPainted(false);
 		btn_Torneos.setContentAreaFilled(false);
 		btn_Torneos.setOpaque(false);
-		btn_Torneos.setBounds(133, 269, 228, 78);
+		btn_Torneos.setBounds(133, 275, 228, 78);
 		contentPane.add(btn_Torneos);
 		
 		btn_Torneos.setUI(new BasicButtonUI() {
@@ -153,23 +197,36 @@ public class PaginaPrincipal extends JFrame {
 		
 		contentPane.add(btn_Partidas_Cercanas);
 		
-		JButton btn_register_1 = new JButton("Cajero");
-		btn_register_1.addActionListener(new ActionListener() {
+		JButton btn_cajero = new JButton("Cajero");
+		btn_cajero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_register_1.setOpaque(false);
-		btn_register_1.setForeground(Color.WHITE);
-		btn_register_1.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btn_register_1.setFocusPainted(false);
-		btn_register_1.setContentAreaFilled(false);
-		btn_register_1.setBorderPainted(false);
-		btn_register_1.setBackground(new Color(196, 49, 25));
-		btn_register_1.setBounds(167, 559, 151, 43);
-		contentPane.add(btn_register_1);
+		btn_cajero.setOpaque(false);
+		btn_cajero.setForeground(Color.WHITE);
+		btn_cajero.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btn_cajero.setFocusPainted(false);
+		btn_cajero.setContentAreaFilled(false);
+		btn_cajero.setBorderPainted(false);
+		btn_cajero.setBackground(new Color(196, 49, 25));
+		btn_cajero.setBounds(167, 559, 151, 43);
+		contentPane.add(btn_cajero);
+		
+		btn_cajero.setUI(new BasicButtonUI() {
+		    @Override
+		    public void paint(Graphics g, JComponent c) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2.setColor(btn_cajero.getBackground());
+		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+		        g2.dispose();
+		        super.paint(g, c);
+		    }
+		});
 		
 		JSeparator separator_1 = new JSeparator();
-		separator_1.setBackground(Color.WHITE);
+		separator_1.setForeground(new Color(235, 227, 194));
+		separator_1.setBackground(new Color(235, 227, 194));
 		separator_1.setBounds(108, 246, 282, 2);
 		contentPane.add(separator_1);
 	
@@ -192,7 +249,7 @@ public class PaginaPrincipal extends JFrame {
 			}
 		};
 		panelRombo.setOpaque(false);
-		panelRombo.setBounds(61, 483, 20, 20); // Posición del rombo
+		panelRombo.setBounds(78, 518, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo);
 		
 		JPanel panelRombo2 = new JPanel() {
@@ -212,7 +269,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo2.setOpaque(false);
-		panelRombo2.setBounds(61, 366, 20, 20); // Posición del rombo
+		panelRombo2.setBounds(78, 371, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo2);
 		
 		JPanel panelRombo3 = new JPanel() {
@@ -232,7 +289,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo3.setOpaque(false);
-		panelRombo3.setBounds(61, 231, 20, 20); // Posición del rombo
+		panelRombo3.setBounds(78, 237, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo3);
 		
 		JPanel panelRombo4 = new JPanel() {
@@ -252,7 +309,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo4.setOpaque(false);
-		panelRombo4.setBounds(400, 366, 20, 20); // Posición del rombo
+		panelRombo4.setBounds(400, 371, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo4);
 		
 		JPanel panelRombo5 = new JPanel() {
@@ -272,7 +329,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo5.setOpaque(false);
-		panelRombo5.setBounds(400, 231, 20, 20); // Posición del rombo
+		panelRombo5.setBounds(400, 237, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo5);
 		
 		JPanel panelRombo6 = new JPanel() {
@@ -292,34 +349,34 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo6.setOpaque(false);
-		panelRombo6.setBounds(400, 483, 20, 20); // Posición del rombo
+		panelRombo6.setBounds(400, 518, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo6);
 				
 		JLabel lblNewLabel = new JLabel("TightPoker");
 		lblNewLabel.setForeground(new Color(235, 227, 194));
-		lblNewLabel.setBounds(130, 94, 228, 95);
+		lblNewLabel.setBounds(133, 109, 228, 95);
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
 		contentPane.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
-		separator.setBackground(new Color(255, 255, 255));
-		separator.setBounds(108, 380, 282, 2);
+		separator.setForeground(new Color(235, 227, 194));
+		separator.setBackground(new Color(235, 227, 194));
+		separator.setBounds(108, 380, 282, 3);
 		contentPane.add(separator);
 		
 		JSeparator separator_2 = new JSeparator();
-		separator_2.setBackground(Color.WHITE);
-		separator_2.setBounds(108, 496, 282, 2);
+		separator_2.setForeground(new Color(235, 227, 194));
+		separator_2.setBackground(new Color(235, 227, 194));
+		separator_2.setBounds(108, 527, 282, 5);
 		contentPane.add(separator_2);
 		
 		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
-
-
-		
 		contentPane.setVisible(true);
 		setUndecorated(true);
-		
+	        setVisible(true);
+	    
 	}
 }

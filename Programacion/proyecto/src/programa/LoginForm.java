@@ -183,3 +183,4 @@ public class LoginForm extends JFrame {
         return isAuthenticated;
     }
 }
+
