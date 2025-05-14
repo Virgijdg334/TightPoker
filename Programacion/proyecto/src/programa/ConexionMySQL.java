@@ -1,7 +1,4 @@
 package programa;
-
-
-
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,11 +15,11 @@ import java.util.TimeZone;
 public class ConexionMySQL {
 
     // Base de datos a la que nos conectamos
-    private String BD;
+    private String BD = "sql7778758";
     // Usuario de la base de datos
-    private String USUARIO;
+    private String USUARIO = "sql7778758";
     // Contraseña del usuario de la base de datos
-    private String PASS;
+    private String PASS = "kqnAkZuehU";
     // Objeto donde se almacenará nuestra conexión
     private Connection connection;
     // Indica que está en localhost
@@ -63,7 +60,7 @@ public class ConexionMySQL {
      *
      * @throws SQLException Se lanzará cuando haya un fallo con la base de datos
      */
-    public void conectar() throws SQLException {
+    /*public void conectar() throws SQLException {
         if (connection == null || connection.isClosed()) {
             registrarDriver();
             // Obtengo la zona horaria
@@ -72,6 +69,27 @@ public class ConexionMySQL {
             connection = (Connection) DriverManager.getConnection("jdbc:mysql://" + HOST + "/" + BD + "?user="
                     + USUARIO + "&password=" + PASS + "&useLegacyDatetimeCode=false&serverTimezone="
                     + zonahoraria.getID());
+        }
+    }*/
+    public void conectar() throws SQLException {
+        if (connection == null || connection.isClosed()) {
+            registrarDriver();
+
+            // Construcción correcta y clara de la URL
+            Calendar now = Calendar.getInstance();
+            zonahoraria = now.getTimeZone();  // Aunque opcional, se mantiene tu idea original
+
+            String url = String.format(
+                "jdbc:mysql://%s:3306/%s?user=%s&password=%s&useLegacyDatetimeCode=false&serverTimezone=%s",
+                HOST, BD, USUARIO, PASS, zonahoraria.getID()
+            );
+
+            try {
+                connection = DriverManager.getConnection(url);
+                System.out.println("Conexión establecida correctamente.");
+            } catch (SQLException e) {
+                throw new SQLException("Error al conectar con la base de datos: " + e.getMessage());
+            }
         }
     }
 

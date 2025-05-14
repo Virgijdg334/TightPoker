@@ -43,7 +43,7 @@ public class PaginaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PokerGUI frame = new PokerGUI();
+					PaginaPrincipal frame = new PaginaPrincipal();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -66,100 +66,256 @@ public class PaginaPrincipal extends JFrame {
 		
 		
 		
-		JButton btn_login = new JButton("Log in");
-		btn_login.setFont(new Font("Tahoma", Font.BOLD, 24));
-		btn_login.setBackground(new Color(196, 49, 25));
-		btn_login.setForeground(Color.WHITE);
-		btn_login.setBounds(133, 274, 228, 78);
-
-		// Redondear el botón y eliminar bordes
-		btn_login.setFocusPainted(false);
-		btn_login.setBorderPainted(false);
-		btn_login.setContentAreaFilled(false);
-		btn_login.setOpaque(false);
-
-		// Dibujar fondo redondeado
-		btn_login.setUI(new BasicButtonUI() {
-		    @Override
-		    public void paint(Graphics g, JComponent c) {
-		        Graphics2D g2 = (Graphics2D) g.create();
-		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2.setColor(btn_login.getBackground());
-		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
-		        g2.dispose();
-		        super.paint(g, c);
-		    }
-		});
-
-		// Acción del botón
-		btn_login.addActionListener(new ActionListener() {
-		    public void actionPerformed(ActionEvent e) {
-		        Formulario_Insertar f1 = new Formulario_Insertar();
-		        f1.setVisible(true);
-		    }
-		});
+		JButton btn_login1 = new JButton("Log in");
+		btn_login1.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_login1.setBackground(new Color(196, 49, 25));
+		btn_login1.setForeground(Color.WHITE);
+		btn_login1.setBounds(133, 274, 228, 78);
 		
-		JLabel Label_apellidos = new JLabel("Apellidos");
-		Label_apellidos.setForeground(new Color(235, 227, 194));
-		Label_apellidos.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-		Label_apellidos.setBounds(125, 65, 89, 14);
-		contentPane.add(Label_apellidos);
-
-		contentPane.add(btn_login);
-		
-		
+				// Redondear el botón y eliminar bordes
+				btn_login1.setFocusPainted(false);
+				btn_login1.setBorderPainted(false);
+				btn_login1.setContentAreaFilled(false);
+				btn_login1.setOpaque(false);
 				
-		JLabel lblNewLabel = new JLabel("TightPoker");
-		lblNewLabel.setForeground(new Color(235, 227, 194));
-		lblNewLabel.setBounds(133, 79, 228, 95);
-		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
-		contentPane.add(lblNewLabel);
+						// Dibujar fondo redondeado
+						btn_login1.setUI(new BasicButtonUI() {
+						    @Override
+						    public void paint(Graphics g, JComponent c) {
+						        Graphics2D g2 = (Graphics2D) g.create();
+						        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+						        g2.setColor(btn_login1.getBackground());
+						        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+						        g2.dispose();
+						        super.paint(g, c);
+						    }
+						});
+
+
 		
-		JButton btn_register = new JButton("Register");
-		btn_register.addActionListener(new ActionListener() {
+		JButton btn_Partidas_Cercanas = new JButton("Partidas Cercanas");
+		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_register.setFont(new Font("Tahoma", Font.BOLD, 24));
-		btn_register.setForeground(Color.WHITE);
-		btn_register.setBackground(new Color(196, 49, 25));
-		btn_register.setBounds(133, 412, 228, 78);
-
-		// Hacer el botón redondeado y sin bordes visibles
-		btn_register.setFocusPainted(false);
-		btn_register.setBorderPainted(false);
-		btn_register.setContentAreaFilled(false);
-		btn_register.setOpaque(false);
-
+		
+		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_Partidas_Cercanas.setForeground(Color.WHITE);
+		btn_Partidas_Cercanas.setBackground(new Color(196, 49, 25));	
+		btn_Partidas_Cercanas.setFocusPainted(false);
+		btn_Partidas_Cercanas.setBorderPainted(false);
+		btn_Partidas_Cercanas.setContentAreaFilled(false);
+		btn_Partidas_Cercanas.setOpaque(false);
+		btn_Partidas_Cercanas.setBounds(133, 407, 228, 78);		
+		
+		
 		// Dibujar el fondo redondeado
-		btn_register.setUI(new BasicButtonUI() {
+		btn_Partidas_Cercanas.setUI(new BasicButtonUI() {
 		    @Override
 		    public void paint(Graphics g, JComponent c) {
 		        Graphics2D g2 = (Graphics2D) g.create();
 		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2.setColor(btn_register.getBackground());
+		        g2.setColor(btn_Partidas_Cercanas.getBackground());
 		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
 		        g2.dispose();
 		        super.paint(g, c);
 		    }
 		});
+		
+		contentPane.add(btn_Partidas_Cercanas);
 
-		contentPane.add(btn_register);
+		JButton btn_Torneos = new JButton("Partidas Cercanas");
+		btn_Torneos.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_Torneos.setFont(new Font("Tahoma", Font.BOLD, 24));
+		btn_Torneos.setForeground(Color.WHITE);
+		btn_Torneos.setBackground(new Color(196, 49, 25));	
+		btn_Torneos.setFocusPainted(false);
+		btn_Torneos.setBorderPainted(false);
+		btn_Torneos.setContentAreaFilled(false);
+		btn_Torneos.setOpaque(false);
+		btn_Torneos.setBounds(133, 269, 228, 78);
+		contentPane.add(btn_Torneos);
+		
+		btn_Torneos.setUI(new BasicButtonUI() {
+		    @Override
+		    public void paint(Graphics g, JComponent c) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2.setColor(btn_Torneos.getBackground());
+		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+		        g2.dispose();
+		        super.paint(g, c);
+		    }
+		});
+		
+		contentPane.add(btn_Partidas_Cercanas);
+		
+		JButton btn_register_1 = new JButton("Cajero");
+		btn_register_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+			}
+		});
+		btn_register_1.setOpaque(false);
+		btn_register_1.setForeground(Color.WHITE);
+		btn_register_1.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btn_register_1.setFocusPainted(false);
+		btn_register_1.setContentAreaFilled(false);
+		btn_register_1.setBorderPainted(false);
+		btn_register_1.setBackground(new Color(196, 49, 25));
+		btn_register_1.setBounds(167, 559, 151, 43);
+		contentPane.add(btn_register_1);
+		
+		JSeparator separator_1 = new JSeparator();
+		separator_1.setBackground(Color.WHITE);
+		separator_1.setBounds(108, 246, 282, 2);
+		contentPane.add(separator_1);
+	
+						
+		
+		JPanel panelRombo = new JPanel() {
+									@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+
+		int width = getWidth();
+		int height = getHeight();
+
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+			}
+		};
+		panelRombo.setOpaque(false);
+		panelRombo.setBounds(61, 483, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo);
+		
+		JPanel panelRombo2 = new JPanel() {
+			@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		int width = getWidth();
+		int height = getHeight();
+		
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+		
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+		}
+		};
+		panelRombo2.setOpaque(false);
+		panelRombo2.setBounds(61, 366, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo2);
+		
+		JPanel panelRombo3 = new JPanel() {
+			@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		int width = getWidth();
+		int height = getHeight();
+		
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+		
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+		}
+		};
+		panelRombo3.setOpaque(false);
+		panelRombo3.setBounds(61, 231, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo3);
+		
+		JPanel panelRombo4 = new JPanel() {
+			@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		int width = getWidth();
+		int height = getHeight();
+		
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+		
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+		}
+		};
+		panelRombo4.setOpaque(false);
+		panelRombo4.setBounds(400, 366, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo4);
+		
+		JPanel panelRombo5 = new JPanel() {
+			@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		int width = getWidth();
+		int height = getHeight();
+		
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+		
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+		}
+		};
+		panelRombo5.setOpaque(false);
+		panelRombo5.setBounds(400, 231, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo5);
+		
+		JPanel panelRombo6 = new JPanel() {
+			@Override
+		protected void paintComponent(Graphics g) {
+		super.paintComponent(g);
+		Graphics2D g2 = (Graphics2D) g;
+		
+		int width = getWidth();
+		int height = getHeight();
+		
+		int[] xPoints = { width / 2, width, width / 2, 0 };
+		int[] yPoints = { 0, height / 2, height, height / 2 };
+		
+		g2.setColor(new Color(235, 227, 194)); // color similar al título
+		g2.fillPolygon(xPoints, yPoints, 4);
+		}
+		};
+		panelRombo6.setOpaque(false);
+		panelRombo6.setBounds(400, 483, 20, 20); // Posición del rombo
+		contentPane.add(panelRombo6);
+				
+		JLabel lblNewLabel = new JLabel("TightPoker");
+		lblNewLabel.setForeground(new Color(235, 227, 194));
+		lblNewLabel.setBounds(130, 94, 228, 95);
+		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
+		contentPane.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
 		separator.setBackground(new Color(255, 255, 255));
 		separator.setBounds(108, 380, 282, 2);
 		contentPane.add(separator);
 		
-		JPanel panel = new JPanel();
-		panel.setBorder(null);
-		panel.setBounds(77, 369, 21, 23);
-		contentPane.add(panel);
-		panel.setLayout(null);
+		JSeparator separator_2 = new JSeparator();
+		separator_2.setBackground(Color.WHITE);
+		separator_2.setBounds(108, 496, 282, 2);
+		contentPane.add(separator_2);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
+		
+
 
 		
 		contentPane.setVisible(true);
