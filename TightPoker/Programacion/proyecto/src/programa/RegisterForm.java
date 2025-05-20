@@ -39,9 +39,6 @@ public class RegisterForm extends JFrame {
 	private JTextField textField_dni;
 	private JPasswordField passwordField;
 
-	// Variables para guardar la posición del ratón al hacer clic
-	private int mouseX, mouseY;
-	
 	/**
 	 * Launch the application.
 	 */
@@ -193,11 +190,6 @@ public class RegisterForm extends JFrame {
 		        String telefono = textField_telefono.getText().trim();
 		        String dni = textField_dni.getText().trim();
 		        String codigoPostal = textField_codigo_postal.getText().trim();
-		        char[] letrasDNI = {'T', 'R', 'W', 'A', 'G', 'M', 'Y', 'F', 'P', 'D',
-	                    'X', 'B', 'N', 'J', 'Z', 'S', 'Q', 'V', 'H', 'L',
-	                    'C', 'K', 'E'};
-		        
-		        
 		        // NOTA: campoFecha se añadió directamente con add() pero no está como atributo.
 		        // Puedes declararlo como atributo si necesitas el valor.
 
@@ -207,14 +199,6 @@ public class RegisterForm extends JFrame {
 		            return;
 		        }
 
-		        if (!nombre.matches("^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+( [A-ZÁÉÍÓÚÑa-záéíóúñ]+)*$")) {
-		        	 JOptionPane.showMessageDialog(null, "Por favor introduce un nombre válido. Solo letras y espacios, empezando por mayúscula.");
-		        	 return;
-		        }
-		        if (!apellidos.matches("^[A-ZÁÉÍÓÚÑ][a-záéíóúñ]+( [A-ZÁÉÍÓÚÑa-záéíóúñ]+)*$")) {
-		        	JOptionPane.showMessageDialog(null, "Por favor introduce unos apellidos válidos. Solo letras y espacios, empezando por mayúscula.");
-		        	return;
-		        }
 		        if (!CheckBox_Terminos.isSelected()) {
 		            JOptionPane.showMessageDialog(null, "Debes aceptar los Términos y Condiciones.");
 		            return;
@@ -222,26 +206,6 @@ public class RegisterForm extends JFrame {
 
 		        if (codigoPostal.length() > 5) {
 		        	JOptionPane.showMessageDialog(null, "Introduce un codigo postal valido");
-		        	return;
-		        }
-		        
-		        if (nombreUsuario.length() > 12) {
-		        	JOptionPane.showMessageDialog(null, "Introduce un username valido (menos de 12 caracteres)");
-		        	return;
-		        }
-		        
-		        if (telefono.length() > 9) {
-		        	JOptionPane.showMessageDialog(null, "Introduce un numero de telefono correcto");
-		        	return;
-		        }
-		        
-		        if (!dni.matches("\\d{8}[A-HJ-NP-TV-Z]")) {
-		        	JOptionPane.showMessageDialog(null, "Introduce un DNI correcto");
-		        	return;	        	
-		        }
-		        
-		        if (contraseña.length() > 12) {
-		        	JOptionPane.showMessageDialog(null, "Introduce una contraseña valida (menos de 12 caracteres)");
 		        	return;
 		        }
 		        
@@ -305,33 +269,13 @@ public class RegisterForm extends JFrame {
 		    }
 		});
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker2.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
 
 		
 		setUndecorated(true);
-		// Escuchamos eventos de ratón sobre el frame o sobre contentPane
-		contentPane.addMouseListener(new java.awt.event.MouseAdapter() {
-		    @Override
-		    public void mousePressed(java.awt.event.MouseEvent e) {
-		        // Guardamos la posición del ratón
-		        mouseX = e.getX();
-		        mouseY = e.getY();
-		    }
-		});
-
-		contentPane.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-		    @Override
-		    public void mouseDragged(java.awt.event.MouseEvent e) {
-		        // Movemos la ventana
-		        int x = e.getXOnScreen();
-		        int y = e.getYOnScreen();
-		        setLocation(x - mouseX, y - mouseY);
-		    }
-		});
-
 
 	}
 }

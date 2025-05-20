@@ -5,7 +5,6 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFrame;
@@ -32,6 +31,7 @@ public class LoginForm extends JFrame {
 	private JPanel contentPane;
 	private JTextField txtIntroduceTuNombre;
 	private final JLabel lblfondo = new JLabel("");
+	private JTextField textField_nacimiento;
 	private JPasswordField passwordField;
 
 	/**
@@ -65,26 +65,7 @@ public class LoginForm extends JFrame {
 		 JFrame frame = new JFrame("Login");
 	     frame.setSize(300, 200);
 	     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	     frame.getContentPane().setLayout(null);
-		
-				JButton btnHome = new JButton();
-				ImageIcon icon =new ImageIcon("C:\\Users\\Alumno1\\Downloads\\\\casa.png"); // Ruta relativa al icono
-				Image image = icon.getImage().getScaledInstance(50, 50, Image.SCALE_SMOOTH);
-				icon = new ImageIcon(image);
-				btnHome.setBounds(199, 609, 82, 71);
-				btnHome.setIcon(icon);
-				btnHome.setBorderPainted(false);
-				btnHome.setContentAreaFilled(false);
-				btnHome.setFocusPainted(false);
-				btnHome.addActionListener(new ActionListener() {
-				    public void actionPerformed(ActionEvent e) {
-				        // Aquí puedes volver a otro menú principal si lo deseas
-				        PaginaPrincipal menu = new PaginaPrincipal();
-				        menu.setVisible(true);
-				        dispose();
-				    }
-				});
-				contentPane.add(btnHome);
+	     frame.setLayout(null);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(109, 344, 238, 37);
@@ -166,6 +147,7 @@ public class LoginForm extends JFrame {
 		
 
 		setUndecorated(true);
+
 	}
 	public static boolean login(String username, String password) {
         boolean isAuthenticated = false;
@@ -201,3 +183,4 @@ public class LoginForm extends JFrame {
         return isAuthenticated;
     }
 }
+
