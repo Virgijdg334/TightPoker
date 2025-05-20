@@ -30,6 +30,12 @@ public class ConexionMySQL {
     // Zona horaria
     private TimeZone zonahoraria;
 
+    
+    public Connection getConnection() {
+    	return connection;
+    }
+    
+    
     /**
      * Constructor de la clase
      *

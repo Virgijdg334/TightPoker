@@ -20,6 +20,8 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class MonsterStacks extends JFrame {
 
@@ -119,35 +121,112 @@ public class MonsterStacks extends JFrame {
         
         
         // Añadiendo paneles de torneo de ejemplo
-        for (int i = 1; i <= 6; i++) {
-            JPanel panelTorneo = new JPanel();
-            panelTorneo.setLayout(null);
-            panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
-            panelTorneo.setBackground(new Color(8, 68, 44));
-            panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+        ConexionMySQL con = new ConexionMySQL("sql7778758", "kqnAkZuehU", "sql7778758");
 
-            JLabel lblNombre = new JLabel("Nombre: Torneo " + i);
-            lblNombre.setBounds(10, 10, 200, 20);
-            lblNombre.setForeground(Color.WHITE);
-            panelTorneo.add(lblNombre);
+        
 
-            JLabel lblFecha = new JLabel("Fecha: 01-01-2025");
-            lblFecha.setBounds(10, 30, 200, 20);
-            lblFecha.setForeground(Color.WHITE);
-            panelTorneo.add(lblFecha);
+        try {
 
-            JLabel lblPremio = new JLabel("Premio: 100€");
-            lblPremio.setBounds(10, 50, 200, 20);
-            lblPremio.setForeground(Color.WHITE);
-            panelTorneo.add(lblPremio);
+        	// Crear instancia de conexión
 
-            JButton btnInscribir = new JButton("Inscribir");
-            btnInscribir.setBounds(220, 55, 100, 25);
-            btnInscribir.setBackground(new Color(196, 49, 25));
-            btnInscribir.setForeground(Color.WHITE);
-            panelTorneo.add(btnInscribir);
+        	con.conectar(); // <-- Esto es obligatorio antes de ejecutar cualquier consulta
 
-            panelContenedor.add(panelTorneo);
+        	ResultSet rs = con.ejecutarSelect("SELECT * FROM torneo WHERE tipo = 'MonsterStack'");
+
+
+
+
+
+         // Añadiendo paneles de torneo de ejemplo
+
+            int i = 0;
+
+            while (rs.next() && i < 6) {  // Limita a 6 torneos
+
+                // Obtener valores desde la base de datos
+
+                String nombre = rs.getString("nombre");
+
+                String lugar = rs.getString("lugar");
+
+                String premio = rs.getString("bote_premios");
+
+
+
+                // Crear panel
+
+                JPanel panelTorneo = new JPanel();
+
+                panelTorneo.setLayout(null);
+
+                panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
+
+                panelTorneo.setBackground(new Color(8, 68, 44));
+
+                panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
+
+
+                JLabel lblNombre = new JLabel("Nombre: " + nombre);
+
+                lblNombre.setBounds(10, 10, 200, 20);
+
+                lblNombre.setForeground(Color.WHITE);
+
+                panelTorneo.add(lblNombre);
+
+
+
+                JLabel lblLugar = new JLabel("Lugar: " + lugar);
+
+                lblLugar.setBounds(10, 30, 200, 20);
+
+                lblLugar.setForeground(Color.WHITE);
+
+                panelTorneo.add(lblLugar);
+
+
+
+                JLabel lblPremio = new JLabel("Premio: " + premio);
+
+                lblPremio.setBounds(10, 50, 200, 20);
+
+                lblPremio.setForeground(Color.WHITE);
+
+                panelTorneo.add(lblPremio);
+
+
+
+                JButton btnInscribir = new JButton("Inscribir");
+
+                btnInscribir.setBounds(220, 55, 100, 25);
+
+                btnInscribir.setBackground(new Color(196, 49, 25));
+
+                btnInscribir.setForeground(Color.WHITE);
+
+                panelTorneo.add(btnInscribir);
+
+
+
+                panelContenedor.add(panelTorneo);
+
+                i++;
+
+            }
+
+
+
+            rs.close();
+
+            con.desconectar();  // Cerrar conexión
+
+
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+
         }
 
         JScrollPane scrollPane = 
