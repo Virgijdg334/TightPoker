@@ -96,10 +96,15 @@ public class PaginaPrincipal extends JFrame {
 		JButton btn_Partidas_Cercanas = new JButton("Partidas Cercanas");
 		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+
+				PartidasCercanas P1 = new PartidasCercanas();
+				P1.setVisible(true);
+				
 			}
 		});
 		
-		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
+		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fotoperfil3.png");
+
 		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 
@@ -374,7 +379,8 @@ public class PaginaPrincipal extends JFrame {
 		separator_2.setBounds(108, 527, 282, 5);
 		contentPane.add(separator_2);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker2.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker2.png"));
+
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
