@@ -10,6 +10,8 @@ import javax.swing.plaf.basic.BasicButtonUI;
 
 import java.sql.SQLException;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+
 import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
@@ -35,6 +37,7 @@ public class PaginaPrincipal extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JLabel lblfondo = new JLabel("");
+	Usuario actual = SesionUsuario.getUsuario();
 
 	/**
 	 * Launch the application.
@@ -96,7 +99,6 @@ public class PaginaPrincipal extends JFrame {
 		JButton btn_Partidas_Cercanas = new JButton("Partidas Cercanas");
 		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-
 				PartidasCercanas P1 = new PartidasCercanas();
 				P1.setVisible(true);
 				
@@ -104,7 +106,6 @@ public class PaginaPrincipal extends JFrame {
 		});
 		
 		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fotoperfil3.png");
-
 		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
 
@@ -145,12 +146,6 @@ public class PaginaPrincipal extends JFrame {
 		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
 
 		getContentPane().add(botonRedondo);
-
-		JLabel lblSaldo = new JLabel("Saldo:");
-		lblSaldo.setForeground(new Color(235, 227, 194));
-		lblSaldo.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
-		lblSaldo.setBounds(167, 631, 60, 29);
-		contentPane.add(lblSaldo);
 		
 		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btn_Partidas_Cercanas.setForeground(Color.WHITE);
@@ -380,13 +375,20 @@ public class PaginaPrincipal extends JFrame {
 		contentPane.add(separator_2);
 		
 		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker2.png"));
-
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
+		
+		
 		contentPane.setVisible(true);
 		setUndecorated(true);
-	        setVisible(true);
+	    setVisible(true);
+	         
+	    JOptionPane.showMessageDialog(this, "Bienvenido " + actual.getNombre(), "Mensaje de bienvenida", JOptionPane.INFORMATION_MESSAGE);
+
+	    setVisible(true);
+	       
+	        
 	    
 	}
 }

@@ -1,6 +1,11 @@
 package programa;
 
 import java.awt.Color;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
@@ -29,10 +34,12 @@ public class LoginForm extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JTextField txtIntroduceTuNombre;
+	private JTextField textField_nombre_usuario;
 	private final JLabel lblfondo = new JLabel("");
 	private JTextField textField_nacimiento;
 	private JPasswordField passwordField;
+	private static Usuario usuarioActual;
+
 
 	/**
 	 * Launch the application.
@@ -65,7 +72,7 @@ public class LoginForm extends JFrame {
 		 JFrame frame = new JFrame("Login");
 	     frame.setSize(300, 200);
 	     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	     frame.setLayout(null);
+	     frame.getContentPane().setLayout(null);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(109, 344, 238, 37);
@@ -96,22 +103,27 @@ public class LoginForm extends JFrame {
 		Label_contraseña.setBounds(109, 319, 238, 14);
 		contentPane.add(Label_contraseña);
 		
-		txtIntroduceTuNombre = new JTextField();
-		txtIntroduceTuNombre.setToolTipText("");
-		txtIntroduceTuNombre.setBounds(109, 228, 238, 37);
-		contentPane.add(txtIntroduceTuNombre);
-		txtIntroduceTuNombre.setColumns(10);
+		textField_nombre_usuario = new JTextField();
+		textField_nombre_usuario.setToolTipText("");
+		textField_nombre_usuario.setBounds(109, 228, 238, 37);
+		contentPane.add(textField_nombre_usuario);
+		textField_nombre_usuario.setColumns(10);
 		
 		JButton btn_login = new JButton("Log In");
 		btn_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-	                String username = lblNombreDeUsuario.getText();
-	                String password = new String(passwordField.getPassword());
+				String nombreUsuario = textField_nombre_usuario.getText().trim();
+				String contraseña = new String(passwordField.getPassword());
 
-	                boolean loginSuccess = login(username, password);
+	                boolean loginSuccess = login(nombreUsuario, contraseña);
 
 	                if (loginSuccess) {
 	                    JOptionPane.showMessageDialog(frame, "Login exitoso");
+	                    Usuario user = new Usuario(nombreUsuario);
+	                    SesionUsuario.setUsuario(user);
+	                    PantallaCarga P1 = new PantallaCarga();	            
+	                    P1.setVisible(true);
+	                    dispose();
 	                } else {
 	                    JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos");
 	                }
@@ -149,38 +161,35 @@ public class LoginForm extends JFrame {
 		setUndecorated(true);
 
 	}
-	public static boolean login(String username, String password) {
-        boolean isAuthenticated = false;
+	public static boolean login(String nombreUsuario, String contraseña) {
+	    boolean isAuthenticated = false;
 
-        // Aquí va tu lógica SQL
-        // Connection conn = null;
-        // try {
-        //     Class.forName("com.mysql.cj.jdbc.Driver");
-        //     conn = DriverManager.getConnection("jdbc:mysql://host:puerto/basedatos", "usuario", "contraseña");
+	    // Crea una instancia de tu clase de conexión
+	    ConexionMySQL conn = new ConexionMySQL("sql7778758", "kqnAkZuehU", "sql7778758");
 
-        //     String query = "SELECT * FROM usuarios WHERE username = ? AND password = ?";
-        //     PreparedStatement stmt = conn.prepareStatement(query);
-        //     stmt.setString(1, username);
-        //     stmt.setString(2, password);
+	    try {
+	        conn.conectar();
 
-        //     ResultSet rs = stmt.executeQuery();
-        //     if (rs.next()) {
-        //         isAuthenticated = true;
-        //     }
+	        String query = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contraseña = ?";
+	        PreparedStatement stmt = conn.getConnection().prepareStatement(query);
+	        stmt.setString(1, nombreUsuario);
+	        stmt.setString(2, contraseña);
 
-        //     rs.close();
-        //     stmt.close();
-        // } catch (Exception ex) {
-        //     ex.printStackTrace();
-        // } finally {
-        //     try {
-        //         if (conn != null) conn.close();
-        //     } catch (SQLException ex) {
-        //         ex.printStackTrace();
-        //     }
-        // }
+	        ResultSet rs = stmt.executeQuery();
 
-        return isAuthenticated;
-    }
+	        if (rs.next()) {
+	            isAuthenticated = true;
+	        }
+
+	        rs.close();
+	        stmt.close();
+	        conn.desconectar();
+
+	    } catch (SQLException ex) {
+	        ex.printStackTrace();
+	    }
+
+	    return isAuthenticated;
+	}
 }
 

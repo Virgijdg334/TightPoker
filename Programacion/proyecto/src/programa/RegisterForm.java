@@ -34,11 +34,11 @@ public class RegisterForm extends JFrame {
 	private final JLabel lblfondo = new JLabel("");
 	private JTextField textField_apellidos;
 	private JTextField textField_codigo_postal;
-	private JTextField textField_nacimiento;
+	private JTextField textField_edad;
 	private JTextField textField_telefono;
 	private JTextField textField_dni;
 	private JPasswordField passwordField;
-
+	
 	/**
 	 * Launch the application.
 	 */
@@ -67,6 +67,11 @@ public class RegisterForm extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
+		textField_edad = new JTextField();
+		textField_edad.setColumns(10);
+		textField_edad.setBounds(218, 348, 181, 20);
+		contentPane.add(textField_edad);
+		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(218, 308, 181, 20);
 		contentPane.add(passwordField);
@@ -91,12 +96,6 @@ public class RegisterForm extends JFrame {
 		try {
 		    MaskFormatter mascaraFecha = new MaskFormatter("##/##/####");
 		    mascaraFecha.setPlaceholderCharacter('_');
-
-		    JFormattedTextField campoFecha = new JFormattedTextField(mascaraFecha);
-		    campoFecha.setBounds(218, 347, 181, 20);
-		    campoFecha.setHorizontalAlignment(JTextField.CENTER);
-
-		    contentPane.add(campoFecha);
 		} catch (ParseException e) {
 		    e.printStackTrace();
 		}
@@ -113,11 +112,11 @@ public class RegisterForm extends JFrame {
 		contentPane.add(textField_dni);
 
 		
-		JLabel Label_nacimiento = new JLabel("Fecha de Nacimiento");
-		Label_nacimiento.setForeground(new Color(235, 227, 194));
-		Label_nacimiento.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
-		Label_nacimiento.setBounds(76, 350, 124, 14);
-		contentPane.add(Label_nacimiento);
+		JLabel lblEdad = new JLabel("Edad");
+		lblEdad.setForeground(new Color(235, 227, 194));
+		lblEdad.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
+		lblEdad.setBounds(76, 350, 124, 14);
+		contentPane.add(lblEdad);
 		
 		JLabel Label_codigo_postal = new JLabel("Codigo Postal");
 		Label_codigo_postal.setForeground(new Color(235, 227, 194));
@@ -187,10 +186,10 @@ public class RegisterForm extends JFrame {
 		        String apellidos = textField_apellidos.getText().trim();
 		        String nombreUsuario = textField_nombre_usuario.getText().trim();
 		        String contraseña = new String(passwordField.getPassword());
+		        String edad = textField_edad.getText().trim();
 		        String telefono = textField_telefono.getText().trim();
 		        String dni = textField_dni.getText().trim();
 		        String codigoPostal = textField_codigo_postal.getText().trim();
-		        // NOTA: campoFecha se añadió directamente con add() pero no está como atributo.
 		        // Puedes declararlo como atributo si necesitas el valor.
 
 		        // Validación básica
@@ -209,22 +208,13 @@ public class RegisterForm extends JFrame {
 		        	return;
 		        }
 		        
-		        // Aquí iría la lógica para insertar los datos en la base de datos
 		        try {
 		            // Establecer conexión a la base de datos
-		            // Connection conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/miBD", "usuario", "contraseña");
+		        	ConexionMySQL conn = new ConexionMySQL("sql7778758", "kqnAkZuehU", "sql7778758");
+                    conn.conectar();
 
-		            // Preparar la sentencia SQL
-		            // String sql = "INSERT INTO usuarios (nombre, apellidos, nombre_usuario, contraseña, telefono, dni, codigo_postal) VALUES (?, ?, ?, ?, ?, ?, ?)";
-		            // PreparedStatement stmt = conn.prepareStatement(sql);
-		            // stmt.setString(1, nombre);
-		            // stmt.setString(2, apellidos);
-		            // stmt.setString(3, nombreUsuario);
-		            // stmt.setString(4, contraseña);
-		            // stmt.setString(5, telefono);
-		            // stmt.setString(6, dni);
-		            // stmt.setString(7, codigoPostal);
-		            // stmt.executeUpdate();
+                    String sql = "INSERT INTO usuario (nombre, apellidos, nombreUsuario, contraseña, edad, telefono, dni, codigoPostal) VALUES ('" + nombre + "', '" + apellidos + "', '" + nombreUsuario + "', '" + contraseña + "', '" + edad + "', '" + telefono + "', '" + dni + "', '" + codigoPostal + "')";
+                    conn.ejecutarInsertDeleteUpdate(sql);
 
 		            // Simulación de registro exitoso
 		            JOptionPane.showMessageDialog(null, "¡Registro exitoso!");
@@ -235,8 +225,13 @@ public class RegisterForm extends JFrame {
 		            passwordField.setText("");
 		            textField_telefono.setText("");
 		            textField_dni.setText("");
+		            textField_edad.setText("");
 		            textField_codigo_postal.setText("");
 		            CheckBox_Terminos.setSelected(false);
+		            
+		            PantallaCarga P1 = new PantallaCarga();	            
+                    P1.setVisible(true);
+                    dispose();
 
 		        } catch (Exception ex) {
 		            // Manejo de errores

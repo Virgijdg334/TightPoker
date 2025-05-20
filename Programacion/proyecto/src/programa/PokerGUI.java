@@ -59,6 +59,7 @@ public class PokerGUI extends JFrame {
         btn_login.addActionListener(e -> {
             LoginForm login = new LoginForm();
             login.setVisible(true);
+            dispose();
         });
 
         contentPane.add(btn_login);
@@ -77,6 +78,7 @@ public class PokerGUI extends JFrame {
         btn_register.addActionListener(e -> {
         	RegisterForm f1 = new RegisterForm();
             f1.setVisible(true);
+            dispose();
         });
 
         contentPane.add(btn_register);
@@ -105,7 +107,7 @@ public class PokerGUI extends JFrame {
         panelRombo_1.setBounds(405, 370, 20, 20);
         contentPane.add(panelRombo_1);
 
-        // Imagen de fondo
+        // Imagen de fondo 
         lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker2.png"));
         lblfondo.setBounds(-11, 0, 518, 757);
         contentPane.add(lblfondo);
