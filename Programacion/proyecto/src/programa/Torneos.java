@@ -28,7 +28,7 @@ import java.awt.Color;
 import javax.swing.UIManager;
 import javax.swing.JSeparator;
 
-public class PaginaPrincipal extends JFrame {
+public class Torneos extends JFrame {
 
 	ConexionMySQL bd = new ConexionMySQL("sql7774423", "sxpS4Av81l" ,"sql7774423");
 	
@@ -43,7 +43,7 @@ public class PaginaPrincipal extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					PaginaPrincipal frame = new PaginaPrincipal();
+					Torneos frame = new Torneos();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -55,7 +55,7 @@ public class PaginaPrincipal extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public PaginaPrincipal() {
+	public Torneos() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 484, 743);
 		contentPane = new JPanel();
@@ -93,8 +93,8 @@ public class PaginaPrincipal extends JFrame {
 
 
 		
-		JButton btn_Partidas_Cercanas = new JButton("Partidas Cercanas");
-		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
+		JButton btn_KO_Progresivo = new JButton("KO Progresivo");
+		btn_KO_Progresivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
@@ -102,6 +102,8 @@ public class PaginaPrincipal extends JFrame {
 		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
 		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
 		icon = new ImageIcon(image);
+		
+
 
 		JButton botonRedondo = new JButton(icon) {
 		    @Override
@@ -127,10 +129,6 @@ public class PaginaPrincipal extends JFrame {
 		        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
 		    }
 		};
-		botonRedondo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 
 		botonRedondo.setBounds(213, 54, 60, 60);
 		botonRedondo.setContentAreaFilled(false);
@@ -144,97 +142,106 @@ public class PaginaPrincipal extends JFrame {
 		JLabel lblSaldo = new JLabel("Saldo:");
 		lblSaldo.setForeground(new Color(235, 227, 194));
 		lblSaldo.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
-		lblSaldo.setBounds(167, 631, 60, 29);
+		lblSaldo.setBounds(124, 631, 60, 29);
 		contentPane.add(lblSaldo);
 		
-		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btn_Partidas_Cercanas.setForeground(Color.WHITE);
-		btn_Partidas_Cercanas.setBackground(new Color(196, 49, 25));	
-		btn_Partidas_Cercanas.setFocusPainted(false);
-		btn_Partidas_Cercanas.setBorderPainted(false);
-		btn_Partidas_Cercanas.setContentAreaFilled(false);
-		btn_Partidas_Cercanas.setOpaque(false);
-		btn_Partidas_Cercanas.setBounds(133, 415, 228, 78);		
+		btn_KO_Progresivo.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btn_KO_Progresivo.setForeground(Color.WHITE);
+		btn_KO_Progresivo.setBackground(new Color(196, 49, 25));	
+		btn_KO_Progresivo.setFocusPainted(false);
+		btn_KO_Progresivo.setBorderPainted(false);
+		btn_KO_Progresivo.setContentAreaFilled(false);
+		btn_KO_Progresivo.setOpaque(false);
+		btn_KO_Progresivo.setBounds(132, 365, 228, 78);		
 		
 		
 		// Dibujar el fondo redondeado
-		btn_Partidas_Cercanas.setUI(new BasicButtonUI() {
+		btn_KO_Progresivo.setUI(new BasicButtonUI() {
 		    @Override
 		    public void paint(Graphics g, JComponent c) {
 		        Graphics2D g2 = (Graphics2D) g.create();
 		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2.setColor(btn_Partidas_Cercanas.getBackground());
+		        g2.setColor(btn_KO_Progresivo.getBackground());
 		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
 		        g2.dispose();
 		        super.paint(g, c);
 		    }
 		});
 		
-		contentPane.add(btn_Partidas_Cercanas);
+		contentPane.add(btn_KO_Progresivo);
 
-		JButton btn_Torneos = new JButton("Torneos");
-		btn_Torneos.addActionListener(new ActionListener() {
+		JButton btn_Mystery_Bountys = new JButton("Mystery Bountys");
+		btn_Mystery_Bountys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_Torneos.setFont(new Font("Tahoma", Font.BOLD, 20));
-		btn_Torneos.setForeground(Color.WHITE);
-		btn_Torneos.setBackground(new Color(196, 49, 25));	
-		btn_Torneos.setFocusPainted(false);
-		btn_Torneos.setBorderPainted(false);
-		btn_Torneos.setContentAreaFilled(false);
-		btn_Torneos.setOpaque(false);
-		btn_Torneos.setBounds(133, 275, 228, 78);
-		contentPane.add(btn_Torneos);
+		btn_Mystery_Bountys.setFont(new Font("Tahoma", Font.BOLD, 20));
+		btn_Mystery_Bountys.setForeground(Color.WHITE);
+		btn_Mystery_Bountys.setBackground(new Color(196, 49, 25));	
+		btn_Mystery_Bountys.setFocusPainted(false);
+		btn_Mystery_Bountys.setBorderPainted(false);
+		btn_Mystery_Bountys.setContentAreaFilled(false);
+		btn_Mystery_Bountys.setOpaque(false);
+		btn_Mystery_Bountys.setBounds(132, 225, 228, 78);
+		contentPane.add(btn_Mystery_Bountys);
 		
-		btn_Torneos.setUI(new BasicButtonUI() {
+		btn_Mystery_Bountys.setUI(new BasicButtonUI() {
 		    @Override
 		    public void paint(Graphics g, JComponent c) {
 		        Graphics2D g2 = (Graphics2D) g.create();
 		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2.setColor(btn_Torneos.getBackground());
+		        g2.setColor(btn_Mystery_Bountys.getBackground());
 		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
 		        g2.dispose();
 		        super.paint(g, c);
 		    }
 		});
 		
-		contentPane.add(btn_Partidas_Cercanas);
-		
-		JButton btn_cajero = new JButton("Cajero");
-		btn_cajero.addActionListener(new ActionListener() {
+		JButton btn_Monster_Stack = new JButton("Monster Stack");
+		btn_Monster_Stack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
-		btn_cajero.setOpaque(false);
-		btn_cajero.setForeground(Color.WHITE);
-		btn_cajero.setFont(new Font("Tahoma", Font.BOLD, 18));
-		btn_cajero.setFocusPainted(false);
-		btn_cajero.setContentAreaFilled(false);
-		btn_cajero.setBorderPainted(false);
-		btn_cajero.setBackground(new Color(196, 49, 25));
-		btn_cajero.setBounds(167, 559, 151, 43);
-		contentPane.add(btn_cajero);
+		btn_Monster_Stack.setOpaque(false);
+		btn_Monster_Stack.setForeground(Color.WHITE);
+		btn_Monster_Stack.setFont(new Font("Tahoma", Font.BOLD, 18));
+		btn_Monster_Stack.setFocusPainted(false);
+		btn_Monster_Stack.setContentAreaFilled(false);
+		btn_Monster_Stack.setBorderPainted(false);
+		btn_Monster_Stack.setBackground(new Color(196, 49, 25));
+		btn_Monster_Stack.setBounds(132, 498, 228, 78);
+		contentPane.add(btn_Monster_Stack);
 		
-		btn_cajero.setUI(new BasicButtonUI() {
+	
+		btn_Monster_Stack.setUI(new BasicButtonUI() {
 		    @Override
 		    public void paint(Graphics g, JComponent c) {
 		        Graphics2D g2 = (Graphics2D) g.create();
 		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		        g2.setColor(btn_cajero.getBackground());
+		        g2.setColor(btn_Monster_Stack.getBackground());
 		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
 		        g2.dispose();
 		        super.paint(g, c);
 		    }
-		});
+		});		
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(new Color(235, 227, 194));
 		separator_1.setBackground(new Color(235, 227, 194));
-		separator_1.setBounds(108, 246, 282, 2);
+		separator_1.setBounds(107, 196, 282, 2);
 		contentPane.add(separator_1);
 	
-						
+		btn_Mystery_Bountys.setUI(new BasicButtonUI() {
+		    @Override
+		    public void paint(Graphics g, JComponent c) {
+		        Graphics2D g2 = (Graphics2D) g.create();
+		        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		        g2.setColor(btn_Mystery_Bountys.getBackground());
+		        g2.fillRoundRect(0, 0, c.getWidth(), c.getHeight(), 30, 30);
+		        g2.dispose();
+		        super.paint(g, c);
+		    }
+		});				
 		
 		JPanel panelRombo = new JPanel() {
 									@Override
@@ -253,7 +260,7 @@ public class PaginaPrincipal extends JFrame {
 			}
 		};
 		panelRombo.setOpaque(false);
-		panelRombo.setBounds(78, 518, 20, 20); // Posición del rombo
+		panelRombo.setBounds(77, 458, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo);
 		
 		JPanel panelRombo2 = new JPanel() {
@@ -273,7 +280,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo2.setOpaque(false);
-		panelRombo2.setBounds(78, 371, 20, 20); // Posición del rombo
+		panelRombo2.setBounds(77, 320, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo2);
 		
 		JPanel panelRombo3 = new JPanel() {
@@ -293,7 +300,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo3.setOpaque(false);
-		panelRombo3.setBounds(78, 237, 20, 20); // Posición del rombo
+		panelRombo3.setBounds(77, 186, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo3);
 		
 		JPanel panelRombo4 = new JPanel() {
@@ -313,7 +320,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo4.setOpaque(false);
-		panelRombo4.setBounds(400, 371, 20, 20); // Posición del rombo
+		panelRombo4.setBounds(399, 320, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo4);
 		
 		JPanel panelRombo5 = new JPanel() {
@@ -333,7 +340,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo5.setOpaque(false);
-		panelRombo5.setBounds(400, 237, 20, 20); // Posición del rombo
+		panelRombo5.setBounds(399, 186, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo5);
 		
 		JPanel panelRombo6 = new JPanel() {
@@ -353,25 +360,25 @@ public class PaginaPrincipal extends JFrame {
 		}
 		};
 		panelRombo6.setOpaque(false);
-		panelRombo6.setBounds(400, 518, 20, 20); // Posición del rombo
+		panelRombo6.setBounds(399, 458, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo6);
 				
-		JLabel lblNewLabel = new JLabel("TightPoker");
+		JLabel lblNewLabel = new JLabel("Torneos");
 		lblNewLabel.setForeground(new Color(235, 227, 194));
-		lblNewLabel.setBounds(133, 109, 228, 95);
+		lblNewLabel.setBounds(155, 103, 171, 95);
 		lblNewLabel.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 54));
 		contentPane.add(lblNewLabel);
 		
 		JSeparator separator = new JSeparator();
 		separator.setForeground(new Color(235, 227, 194));
 		separator.setBackground(new Color(235, 227, 194));
-		separator.setBounds(108, 380, 282, 3);
+		separator.setBounds(107, 330, 282, 3);
 		contentPane.add(separator);
 		
 		JSeparator separator_2 = new JSeparator();
 		separator_2.setForeground(new Color(235, 227, 194));
 		separator_2.setBackground(new Color(235, 227, 194));
-		separator_2.setBounds(108, 527, 282, 5);
+		separator_2.setBounds(107, 468, 282, 5);
 		contentPane.add(separator_2);
 		
 		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker2.png"));

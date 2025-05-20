@@ -12,7 +12,6 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicButtonUI;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -25,7 +24,7 @@ import javax.swing.JFormattedTextField;
 import java.text.ParseException;
 import javax.swing.JPasswordField;
 
-public class RegisterForm extends JFrame {
+public class Formulario_Insertar extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -34,11 +33,11 @@ public class RegisterForm extends JFrame {
 	private final JLabel lblfondo = new JLabel("");
 	private JTextField textField_apellidos;
 	private JTextField textField_codigo_postal;
-	private JTextField textField_edad;
+	private JTextField textField_nacimiento;
 	private JTextField textField_telefono;
 	private JTextField textField_dni;
 	private JPasswordField passwordField;
-	
+
 	/**
 	 * Launch the application.
 	 */
@@ -46,7 +45,7 @@ public class RegisterForm extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					RegisterForm frame = new RegisterForm();
+					Formulario_Insertar frame = new Formulario_Insertar();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -58,7 +57,7 @@ public class RegisterForm extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public RegisterForm() {
+	public Formulario_Insertar() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 484, 743);
 		contentPane = new JPanel();
@@ -66,11 +65,6 @@ public class RegisterForm extends JFrame {
 
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
-		textField_edad = new JTextField();
-		textField_edad.setColumns(10);
-		textField_edad.setBounds(218, 348, 181, 20);
-		contentPane.add(textField_edad);
 		
 		passwordField = new JPasswordField();
 		passwordField.setBounds(218, 308, 181, 20);
@@ -96,6 +90,12 @@ public class RegisterForm extends JFrame {
 		try {
 		    MaskFormatter mascaraFecha = new MaskFormatter("##/##/####");
 		    mascaraFecha.setPlaceholderCharacter('_');
+
+		    JFormattedTextField campoFecha = new JFormattedTextField(mascaraFecha);
+		    campoFecha.setBounds(218, 347, 181, 20);
+		    campoFecha.setHorizontalAlignment(JTextField.CENTER);
+
+		    contentPane.add(campoFecha);
 		} catch (ParseException e) {
 		    e.printStackTrace();
 		}
@@ -112,11 +112,11 @@ public class RegisterForm extends JFrame {
 		contentPane.add(textField_dni);
 
 		
-		JLabel lblEdad = new JLabel("Edad");
-		lblEdad.setForeground(new Color(235, 227, 194));
-		lblEdad.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
-		lblEdad.setBounds(76, 350, 124, 14);
-		contentPane.add(lblEdad);
+		JLabel Label_nacimiento = new JLabel("Fecha de Nacimiento");
+		Label_nacimiento.setForeground(new Color(235, 227, 194));
+		Label_nacimiento.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 15));
+		Label_nacimiento.setBounds(76, 350, 124, 14);
+		contentPane.add(Label_nacimiento);
 		
 		JLabel Label_codigo_postal = new JLabel("Codigo Postal");
 		Label_codigo_postal.setForeground(new Color(235, 227, 194));
@@ -181,61 +181,8 @@ public class RegisterForm extends JFrame {
 		JButton btn_formulario = new JButton("Registrarse");
 		btn_formulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				// Obtener datos del formulario
-		        String nombre = textField_nombre.getText().trim();
-		        String apellidos = textField_apellidos.getText().trim();
-		        String nombreUsuario = textField_nombre_usuario.getText().trim();
-		        String contraseña = new String(passwordField.getPassword());
-		        String edad = textField_edad.getText().trim();
-		        String telefono = textField_telefono.getText().trim();
-		        String dni = textField_dni.getText().trim();
-		        String codigoPostal = textField_codigo_postal.getText().trim();
-		        // Puedes declararlo como atributo si necesitas el valor.
-
-		        // Validación básica
-		        if (nombre.isEmpty() || apellidos.isEmpty() || nombreUsuario.isEmpty() || contraseña.isEmpty()) {
-		            JOptionPane.showMessageDialog(null, "Por favor, completa todos los campos obligatorios.");
-		            return;
-		        }
-
-		        if (!CheckBox_Terminos.isSelected()) {
-		            JOptionPane.showMessageDialog(null, "Debes aceptar los Términos y Condiciones.");
-		            return;
-		        }
-
-		        if (codigoPostal.length() > 5) {
-		        	JOptionPane.showMessageDialog(null, "Introduce un codigo postal valido");
-		        	return;
-		        }
-		        
-		        try {
-		            // Establecer conexión a la base de datos
-		        	ConexionMySQL conn = new ConexionMySQL("sql7778758", "kqnAkZuehU", "sql7778758");
-                    conn.conectar();
-
-                    String sql = "INSERT INTO usuario (nombre, apellidos, nombreUsuario, contraseña, edad, telefono, dni, codigoPostal) VALUES ('" + nombre + "', '" + apellidos + "', '" + nombreUsuario + "', '" + contraseña + "', '" + edad + "', '" + telefono + "', '" + dni + "', '" + codigoPostal + "')";
-                    conn.ejecutarInsertDeleteUpdate(sql);
-
-		            // Simulación de registro exitoso
-		            JOptionPane.showMessageDialog(null, "¡Registro exitoso!");
-		            // Limpiar campos después del registro
-		            textField_nombre.setText("");
-		            textField_apellidos.setText("");
-		            textField_nombre_usuario.setText("");
-		            passwordField.setText("");
-		            textField_telefono.setText("");
-		            textField_dni.setText("");
-		            textField_edad.setText("");
-		            textField_codigo_postal.setText("");
-		            CheckBox_Terminos.setSelected(false);
-
-		        } catch (Exception ex) {
-		            // Manejo de errores
-		            JOptionPane.showMessageDialog(null, "Error durante el registro: " + ex.getMessage());
-		        }
-		    }
+			}
 		});
-			
 		btn_formulario.setFont(new Font("Tahoma", Font.BOLD, 17));
 		btn_formulario.setBackground(new Color(196, 49, 25));
 		btn_formulario.setForeground(Color.WHITE);
@@ -260,7 +207,7 @@ public class RegisterForm extends JFrame {
 		    }
 		});
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker2.png"));
+		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker.png"));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		

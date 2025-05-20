@@ -34,6 +34,12 @@ public class ConexionMySQL {
      * @param pass Contraseña del usuario
      * @param bd Base de datos a la que nos conectamos
      */
+    
+    public Connection getConnection() {
+        return connection;
+    }
+
+    
     public ConexionMySQL(String usuario, String pass, String bd) {
         HOST = "sql7.freesqldatabase.com";
         USUARIO = usuario;
