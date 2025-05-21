@@ -99,6 +99,7 @@ public class PokerGUI extends JFrame {
 
         // Panel con forma de rombo (izquierda)
         JPanel panelRombo = crearPanelRombo();
+        panelRombo.setBackground(new Color(3, 65, 37));
         panelRombo.setBounds(61, 370, 20, 20);
         contentPane.add(panelRombo);
 

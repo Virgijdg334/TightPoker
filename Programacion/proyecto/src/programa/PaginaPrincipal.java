@@ -273,6 +273,7 @@ public class PaginaPrincipal extends JFrame {
 		g2.fillPolygon(xPoints, yPoints, 4);
 		}
 		};
+		panelRombo2.setBackground(new Color(3, 65, 37));
 		panelRombo2.setOpaque(false);
 		panelRombo2.setBounds(78, 371, 20, 20); // Posición del rombo
 		contentPane.add(panelRombo2);
