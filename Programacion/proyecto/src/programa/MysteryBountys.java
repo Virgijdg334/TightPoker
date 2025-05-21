@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -58,38 +59,38 @@ public class MysteryBountys extends JFrame {
         	}
         };
         
-		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
-		Image image = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(image);
+        URL imageUrl = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon icon = null;
 
-		JButton botonRedondo1 = new JButton(icon) {
-		    @Override
-		    protected void paintComponent(Graphics g) {
-		        if (getModel().isArmed()) {
-		           
-		        } else {
-		            
-		        }
-		        g.fillOval(0, 0, getWidth(), getHeight());
-		        super.paintComponent(g);
-		    }
+        if (imageUrl != null) {
+            icon = new ImageIcon(imageUrl);
+            Image image = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(image);
+        } else {
+            System.out.println("Imagen no encontrada");
+            // Puedes usar un icono por defecto si falla
+            icon = new ImageIcon(); // o poner null si lo prefieres
+        }
 
-		    @Override
-		    protected void paintBorder(Graphics g) {
-		       
-		        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
-		    }
+        // Crear el botón redondo con el ícono cargado
+        JButton botonRedondo1 = new JButton(icon) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.fillOval(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
 
-		    @Override
-		    public boolean contains(int x, int y) {
-		        int radius = getWidth() / 2;
-		        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
-		    }
-		};
-		botonRedondo1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+            @Override
+            protected void paintBorder(Graphics g) {
+                g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+            }
+
+            @Override
+            public boolean contains(int x, int y) {
+                int radius = getWidth() / 2;
+                return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+            }
+        };
 
 		botonRedondo1.setBounds(431, 54, 45, 45);
 		botonRedondo1.setContentAreaFilled(false);
@@ -236,7 +237,7 @@ public class MysteryBountys extends JFrame {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
-        lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPokerHorizontal.png"));
+        lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPokerHorizontal.png")));
         lblfondo.setBounds(0, -171, 631, 757);
         contentPane.add(lblfondo);
 

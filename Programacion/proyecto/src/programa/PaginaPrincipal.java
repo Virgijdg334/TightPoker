@@ -24,6 +24,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.security.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -105,25 +106,29 @@ public class PaginaPrincipal extends JFrame {
 			}
 		});
 		
-		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fotoperfil3.png");
-		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(image);
+		URL imageUrl = getClass().getResource("/imagenes/fotoperfil3.png");
+		ImageIcon icon = null;
 
+		if (imageUrl != null) {
+		    icon = new ImageIcon(imageUrl);
+		    Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+		    icon = new ImageIcon(image);
+		} else {
+		    System.out.println("Imagen no encontrada");
+		    // Puedes usar un icono por defecto si falla
+		    icon = new ImageIcon(); // o poner null si lo prefieres
+		}
+
+		// Crear el botón redondo con el ícono cargado
 		JButton botonRedondo = new JButton(icon) {
 		    @Override
 		    protected void paintComponent(Graphics g) {
-		        if (getModel().isArmed()) {
-		           
-		        } else {
-		            
-		        }
 		        g.fillOval(0, 0, getWidth(), getHeight());
 		        super.paintComponent(g);
 		    }
 
 		    @Override
 		    protected void paintBorder(Graphics g) {
-		       
 		        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
 		    }
 
@@ -133,10 +138,6 @@ public class PaginaPrincipal extends JFrame {
 		        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
 		    }
 		};
-		botonRedondo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 
 		botonRedondo.setBounds(213, 54, 60, 60);
 		botonRedondo.setContentAreaFilled(false);
@@ -374,7 +375,7 @@ public class PaginaPrincipal extends JFrame {
 		separator_2.setBounds(108, 527, 282, 5);
 		contentPane.add(separator_2);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker2.png"));
+		lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPoker.png")));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		

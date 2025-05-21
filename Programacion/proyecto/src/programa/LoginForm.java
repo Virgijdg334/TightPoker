@@ -153,7 +153,7 @@ public class LoginForm extends JFrame {
 		    }
 		});
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPoker.png"));
+		lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPoker.png")));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		

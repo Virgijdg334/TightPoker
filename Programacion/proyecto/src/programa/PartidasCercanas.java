@@ -157,7 +157,7 @@ public class PartidasCercanas extends JFrame {
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
         contentPane.add(scrollPane);
 
-        lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\ProyectoPoker\\TightPoker\\imagenes\\fondoPokerHorizontal.png"));
+        lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPokerHorizontal.png")));
         lblfondo.setBounds(0, -171, 631, 757);
         contentPane.add(lblfondo);
 

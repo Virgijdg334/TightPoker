@@ -10,6 +10,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.awt.BorderLayout;
 
 import javax.swing.BorderFactory;
@@ -75,18 +76,23 @@ public class Cajero extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPokerHorizontal.png");
-                Image img = icon.getImage();
 
-                if (img != null) {
-                    int imgWidth = img.getWidth(this);
-                    int imgHeight = img.getHeight(this);
+                // Cargar imagen del classpath
+                URL imageUrl = getClass().getResource("/imagenes/fondoPokerHorizontal.png");
+
+                if (imageUrl != null) {
+                    ImageIcon icon = new ImageIcon(imageUrl);
+                    Image img = icon.getImage();
+
+                    int imgWidth = icon.getIconWidth();
+                    int imgHeight = icon.getIconHeight();
                     int panelWidth = getWidth();
                     int panelHeight = getHeight();
 
+                    // Escalado proporcional para cubrir el panel
                     double scaleX = (double) panelWidth / imgWidth;
                     double scaleY = (double) panelHeight / imgHeight;
-                    double scale = Math.max(scaleX, scaleY); // Escala para cubrir completamente
+                    double scale = Math.max(scaleX, scaleY); // Cubre completamente
 
                     int scaledWidth = (int) (imgWidth * scale);
                     int scaledHeight = (int) (imgHeight * scale);
@@ -95,9 +101,12 @@ public class Cajero extends JFrame {
                     int y = (panelHeight - scaledHeight) / 2;
 
                     g.drawImage(img, x, y, scaledWidth, scaledHeight, this);
+                } else {
+                    System.out.println("Imagen no encontrada en /imagenes/fondoPokerHorizontal.png");
                 }
             }
         };
+
         backgroundPanel.setLayout(null); // backgroundPanel también con null layout
         backgroundPanel.setBounds(0, 0, getWidth(), getHeight());
         contentPane.add(backgroundPanel);

@@ -3,6 +3,8 @@ package programa;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
+
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
@@ -21,8 +23,9 @@ public class PantallaCarga extends JFrame {
 
     public PantallaCarga() {
         // Cargar imagen del fondo
-        ImageIcon fondoIcon = new ImageIcon("C:\\\\Users\\\\Alumno1\\\\Documents\\\\ProyectoPoker\\\\TightPoker\\\\imagenes\\\\fondoPokerHorizontal.png");
-        Image fondoImg = fondoIcon.getImage();
+    	URL fondoUrl = getClass().getResource("/imagenes/fondoPokerHorizontal.png");
+    	ImageIcon fondoIcon = new ImageIcon(fondoUrl);
+    	Image fondoImg = fondoIcon.getImage();
 
         int ancho = fondoImg.getWidth(null);
         int alto = fondoImg.getHeight(null);

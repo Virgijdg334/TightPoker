@@ -22,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.security.Principal;
 import java.awt.event.ActionEvent;
 import java.awt.Color;
@@ -99,10 +100,17 @@ public class Torneos extends JFrame {
 			}
 		});
 		
-		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
-		Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(image);
-		
+		URL imageUrl = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon icon = null;
+        if (imageUrl != null) {
+            icon = new ImageIcon(imageUrl);
+            Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(image);
+        } else {
+            System.out.println("Imagen no encontrada");
+            // Puedes usar un icono por defecto si falla
+            icon = new ImageIcon(); // o poner null si lo prefieres
+        }
 
 
 		JButton botonRedondo = new JButton(icon) {
@@ -381,7 +389,7 @@ public class Torneos extends JFrame {
 		separator_2.setBounds(107, 468, 282, 5);
 		contentPane.add(separator_2);
 		
-		lblfondo.setIcon(new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fondoPoker2.png"));
+		lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPoker2.png")));
 		lblfondo.setBounds(-11, 0, 518, 757);
 		contentPane.add(lblfondo);
 		
