@@ -52,19 +52,19 @@ public class MysteryBountys extends JFrame {
         setContentPane(contentPane);
         contentPane.setLayout(null);
 
-        URL imageUrl = getClass().getResource("/imagenes/fotoperfil3.png");
-        ImageIcon icon = null;
+        URL imageUrl1 = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon icon1 = null;
 
-        if (imageUrl != null) {
-            icon = new ImageIcon(imageUrl);
-            Image image = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(image);
+        if (imageUrl1 != null) {
+            icon1 = new ImageIcon(imageUrl1);
+            Image image = icon1.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+            icon1 = new ImageIcon(image);
         } else {
             System.out.println("Imagen no encontrada");
-            icon = new ImageIcon();
+            icon1 = new ImageIcon();
         }
 
-        JButton botonRedondo1 = new JButton(icon) {
+        JButton botonRedondo1 = new JButton(icon1) {
             @Override
             protected void paintComponent(Graphics g) {
                 g.fillOval(0, 0, getWidth(), getHeight());
@@ -152,6 +152,47 @@ public class MysteryBountys extends JFrame {
                 panelTorneo.add(lblPrecio);
 
                 JButton btnInscribir = new JButton("Inscribir");
+
+                URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+                ImageIcon icon = null;
+
+                if (imageUrl != null) {
+                    icon = new ImageIcon(imageUrl);
+                    Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                    icon = new ImageIcon(image);
+                } else {
+                    System.out.println("Imagen no encontrada");
+                    // Puedes usar un icono por defecto si falla
+                    icon = new ImageIcon(); // o poner null si lo prefieres
+                }
+
+                // Crear el botón redondo con el ícono cargado
+                JButton botonRedondo = new JButton(icon) {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        g.fillOval(0, 0, getWidth(), getHeight());
+                        super.paintComponent(g);
+                    }
+
+                    @Override
+                    protected void paintBorder(Graphics g) {
+                        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+                    }
+
+                    @Override
+                    public boolean contains(int x, int y) {
+                        int radius = getWidth() / 2;
+                        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+                    }
+                };
+                botonRedondo.setBounds( 279, 312, 60, 60);
+                botonRedondo.setContentAreaFilled(false);
+                botonRedondo.setFocusPainted(false);
+                botonRedondo.setBorderPainted(false);
+                botonRedondo.setForeground(new Color(5, 66, 47));
+                botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+                getContentPane().add(botonRedondo);
+
                 btnInscribir.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
                         try {

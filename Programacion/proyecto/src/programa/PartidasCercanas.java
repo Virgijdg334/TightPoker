@@ -20,6 +20,7 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.net.URL;
 
 public class PartidasCercanas extends JFrame {
 
@@ -55,48 +56,44 @@ public class PartidasCercanas extends JFrame {
         		return false;
         	}
         };
-        
-		ImageIcon icon = new ImageIcon("C:\\Users\\Alumno1\\Documents\\TightPoker\\imagenes\\fotoperfil3.png");
-		Image image = icon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-		icon = new ImageIcon(image);
 
-		JButton botonRedondo1 = new JButton(icon) {
-		    @Override
-		    protected void paintComponent(Graphics g) {
-		        if (getModel().isArmed()) {
-		           
-		        } else {
-		            
-		        }
-		        g.fillOval(0, 0, getWidth(), getHeight());
-		        super.paintComponent(g);
-		    }
+        URL imageUrl1 = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon icon1 = null;
 
-		    @Override
-		    protected void paintBorder(Graphics g) {
-		       
-		        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
-		    }
+        if (imageUrl1 != null) {
+            icon1 = new ImageIcon(imageUrl1);
+            Image image = icon1.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+            icon1 = new ImageIcon(image);
+        } else {
+            System.out.println("Imagen no encontrada");
+            icon1 = new ImageIcon();
+        }
 
-		    @Override
-		    public boolean contains(int x, int y) {
-		        int radius = getWidth() / 2;
-		        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
-		    }
-		};
-		botonRedondo1.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
+        JButton botonRedondo1 = new JButton(icon1) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.fillOval(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
 
-		botonRedondo1.setBounds(431, 54, 45, 45);
-		botonRedondo1.setContentAreaFilled(false);
-		botonRedondo1.setFocusPainted(false);
-		botonRedondo1.setBorderPainted(false);
-		botonRedondo1.setForeground(new Color(235, 227, 194));
-		botonRedondo1.setFont(new Font("Arial", Font.BOLD, 16));
+            @Override
+            protected void paintBorder(Graphics g) {
+                g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+            }
 
-		getContentPane().add(botonRedondo1);
+            @Override
+            public boolean contains(int x, int y) {
+                int radius = getWidth() / 2;
+                return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+            }
+        };
+        botonRedondo1.setBounds(431, 54, 45, 45);
+        botonRedondo1.setContentAreaFilled(false);
+        botonRedondo1.setFocusPainted(false);
+        botonRedondo1.setBorderPainted(false);
+        botonRedondo1.setForeground(new Color(235, 227, 194));
+        botonRedondo1.setFont(new Font("Arial", Font.BOLD, 16));
+        getContentPane().add(botonRedondo1);
         
         JLabel lbl_Salario = new JLabel("Salario");
         lbl_Salario.setForeground(new Color(235, 227, 194));
@@ -116,7 +113,45 @@ public class PartidasCercanas extends JFrame {
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        
+        URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+        ImageIcon icon = null;
+
+        if (imageUrl != null) {
+            icon = new ImageIcon(imageUrl);
+            Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(image);
+        } else {
+            System.out.println("Imagen no encontrada");
+            // Puedes usar un icono por defecto si falla
+            icon = new ImageIcon(); // o poner null si lo prefieres
+        }
+
+        // Crear el botón redondo con el ícono cargado
+        JButton botonRedondo2 = new JButton(icon) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.fillOval(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+
+            @Override
+            protected void paintBorder(Graphics g) {
+                g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+            }
+
+            @Override
+            public boolean contains(int x, int y) {
+                int radius = getWidth() / 2;
+                return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+            }
+        };
+        botonRedondo.setBounds( 279, 312, 60, 60);
+        botonRedondo.setContentAreaFilled(false);
+        botonRedondo.setFocusPainted(false);
+        botonRedondo.setBorderPainted(false);
+        botonRedondo.setForeground(new Color(5, 66, 47));
+        botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+        getContentPane().add(botonRedondo);
         
         // Añadiendo paneles de torneo de ejemplo
         for (int i = 1; i <= 6; i++) {

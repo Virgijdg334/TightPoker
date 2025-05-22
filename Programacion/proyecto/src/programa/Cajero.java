@@ -118,6 +118,46 @@ public class Cajero extends JFrame {
             }
         };
 
+        URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+        ImageIcon icon = null;
+
+        if (imageUrl != null) {
+            icon = new ImageIcon(imageUrl);
+            Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            icon = new ImageIcon(image);
+        } else {
+            System.out.println("Imagen no encontrada");
+            // Puedes usar un icono por defecto si falla
+            icon = new ImageIcon(); // o poner null si lo prefieres
+        }
+
+        // Crear el botón redondo con el ícono cargado
+        JButton botonRedondo = new JButton(icon) {
+            @Override
+            protected void paintComponent(Graphics g) {
+                g.fillOval(0, 0, getWidth(), getHeight());
+                super.paintComponent(g);
+            }
+
+            @Override
+            protected void paintBorder(Graphics g) {
+                g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+            }
+
+            @Override
+            public boolean contains(int x, int y) {
+                int radius = getWidth() / 2;
+                return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+            }
+        };
+        botonRedondo.setBounds(518, 181, 60, 60);
+        backgroundPanel.add(botonRedondo);
+        botonRedondo.setContentAreaFilled(false);
+        botonRedondo.setFocusPainted(false);
+        botonRedondo.setBorderPainted(false);
+        botonRedondo.setForeground(new Color(5, 66, 47));
+        botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+
         backgroundPanel.setLayout(null); // backgroundPanel también con null layout
         backgroundPanel.setBounds(0, 0, getWidth(), getHeight());
         contentPane.add(backgroundPanel);
