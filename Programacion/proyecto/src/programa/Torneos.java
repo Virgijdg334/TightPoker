@@ -97,6 +97,11 @@ public class Torneos extends JFrame {
 		JButton btn_KO_Progresivo = new JButton("KO Progresivo");
 		btn_KO_Progresivo.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+			
+				KO_Progresivo K1 = new KO_Progresivo();
+				dispose();
+				K1.setVisible(true);
+				
 			}
 		});
 		
@@ -181,6 +186,9 @@ public class Torneos extends JFrame {
 		JButton btn_Mystery_Bountys = new JButton("Mystery Bountys");
 		btn_Mystery_Bountys.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MysteryBountys MB1 = new MysteryBountys();
+				dispose();
+				MB1.setVisible(true);
 			}
 		});
 		btn_Mystery_Bountys.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -208,6 +216,9 @@ public class Torneos extends JFrame {
 		JButton btn_Monster_Stack = new JButton("Monster Stack");
 		btn_Monster_Stack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				MonsterStacks MS1 = new MonsterStacks();
+				dispose();
+				MS1.setVisible(true);
 			}
 		});
 		btn_Monster_Stack.setOpaque(false);

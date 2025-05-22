@@ -51,7 +51,7 @@ public class PerfilUsuario extends JFrame {
 
         EventQueue.invokeLater(() -> {
             try {
-            	PerfilUsuario frame = new PerfilUsuario();
+            PerfilUsuario frame = new PerfilUsuario();
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -106,7 +106,7 @@ public class PerfilUsuario extends JFrame {
         };
 
         backgroundPanel.setLayout(null); // backgroundPanel también con null layout
-        backgroundPanel.setBounds(0, 0, getWidth(), getHeight());
+        backgroundPanel.setBounds(0, 6, getWidth(), getHeight());
         contentPane.add(backgroundPanel);
 
         // --- menuPanel: El menú lateral (separado del contenido principal) ---
@@ -121,17 +121,63 @@ public class PerfilUsuario extends JFrame {
         int menuHeight = 220; // Alto del menú (ajustado para los botones)
         int menuX = 50; // Margen izquierdo
         int menuY = (getHeight() / 2) - (menuHeight / 2); // Centrado verticalmente
-        menuPanel.setBounds(58, 136, 100, 178);
+       
+URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+ImageIcon icon = null;
+
+if (imageUrl != null) {
+   icon = new ImageIcon(imageUrl);
+   Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+   icon = new ImageIcon(image);
+} else {
+   System.out.println("Imagen no encontrada");
+   // Puedes usar un icono por defecto si falla
+   icon = new ImageIcon(); // o poner null si lo prefieres
+}
+       
+        // Crear el botón redondo con el ícono cargado
+        JButton botonRedondo = new JButton(icon) {
+           @Override
+           protected void paintComponent(Graphics g) {
+               g.fillOval(0, 0, getWidth(), getHeight());
+               super.paintComponent(g);
+           }
+       
+           @Override
+           protected void paintBorder(Graphics g) {
+               g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+           }
+       
+           @Override
+           public boolean contains(int x, int y) {
+               int radius = getWidth() / 2;
+               return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+           }
+        };
+        botonRedondo.setBounds(518, 181, 60, 60);
+        backgroundPanel.add(botonRedondo);
+        botonRedondo.setContentAreaFilled(false);
+        botonRedondo.setFocusPainted(false);
+        botonRedondo.setBorderPainted(false);
+        botonRedondo.setForeground(new Color(5, 66, 47));
+        botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+       
+        menuPanel.setBounds(58, 126, 100, 178);
         backgroundPanel.add(menuPanel);
 
         JButton btnDatos = createCompactMenuButton("Datos");
+        JButton btnBorrar = createCompactMenuButton("Borrar");
         JButton btnModificar = createCompactMenuButton("Modificar");
         JButton btnSoporte = createCompactMenuButton("Soporte");
         JButton btnFAQ = createCompactMenuButton("FAQ");
-
+       
+       
+       
         menuPanel.add(btnDatos);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 5))); // Espacio entre botones reducido
         menuPanel.add(btnModificar);
+        menuPanel.add(Box.createRigidArea(new Dimension(0, 5)));
+        menuPanel.add(btnBorrar);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 5)));
         menuPanel.add(btnSoporte);
         menuPanel.add(Box.createRigidArea(new Dimension(0, 5)));
@@ -155,7 +201,7 @@ public class PerfilUsuario extends JFrame {
         // Creamos y añadimos los paneles de contenido individuales
         mainContentPanel.add(createDatosPanel(), "Datos");
         mainContentPanel.add(createModificar(), "Modificar");
-        mainContentPanel.add(createRetiradaPanel(), "Retirada");
+        mainContentPanel.add(createBorrarCuentaPanel(), "BorrarCuenta");
         mainContentPanel.add(createSoportePanel(), "Soporte");
         mainContentPanel.add(createFAQPanel(), "FAQ");
 
@@ -164,7 +210,7 @@ public class PerfilUsuario extends JFrame {
         btnModificar.addActionListener(e -> cardLayout.show(mainContentPanel, "Modificar"));
         btnSoporte.addActionListener(e -> cardLayout.show(mainContentPanel, "Soporte"));
         btnFAQ.addActionListener(e -> cardLayout.show(mainContentPanel, "FAQ"));
-       
+        btnBorrar.addActionListener(e -> cardLayout.show(mainContentPanel, "BorrarCuenta"));
         // Mostrar inicialmente el panel de "Datos"
         cardLayout.show(mainContentPanel, "Datos");
                
@@ -201,43 +247,43 @@ public class PerfilUsuario extends JFrame {
         lbl_Salario_Texto_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_Salario_Texto_1.setBounds(20, 33, 59, 25);
         panel.add(lbl_Salario_Texto_1);
-        
+       
         JLabel lbl_Salario_Texto_1_1 = new JLabel("Apellidos:");
         lbl_Salario_Texto_1_1.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_Salario_Texto_1_1.setBounds(20, 67, 68, 25);
         panel.add(lbl_Salario_Texto_1_1);
-        
+       
         JLabel lbl_Salario_Texto_1_2 = new JLabel("Nombre de Usuario:");
         lbl_Salario_Texto_1_2.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_2.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_Salario_Texto_1_2.setBounds(20, 104, 124, 25);
         panel.add(lbl_Salario_Texto_1_2);
-        
+       
         JLabel lbl_Salario_Texto_1_3 = new JLabel("Numero de Teléfono:");
         lbl_Salario_Texto_1_3.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_3.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_Salario_Texto_1_3.setBounds(20, 141, 131, 25);
         panel.add(lbl_Salario_Texto_1_3);
-        
+       
         JLabel lbl_nombre = new JLabel("");
         lbl_nombre.setForeground(new Color(235, 227, 194));
         lbl_nombre.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_nombre.setBounds(101, 33, 59, 25);
         panel.add(lbl_nombre);
-        
+       
         JLabel lbl_apellidos = new JLabel("");
         lbl_apellidos.setForeground(new Color(235, 227, 194));
         lbl_apellidos.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_apellidos.setBounds(101, 67, 59, 25);
         panel.add(lbl_apellidos);
-        
+       
         JLabel lbl_nombreUsuario = new JLabel("");
         lbl_nombreUsuario.setForeground(new Color(235, 227, 194));
         lbl_nombreUsuario.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_nombreUsuario.setBounds(163, 104, 59, 25);
         panel.add(lbl_nombreUsuario);
-        
+       
         JLabel lbl_telefono = new JLabel("");
         lbl_telefono.setForeground(new Color(235, 227, 194));
         lbl_telefono.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
@@ -274,78 +320,105 @@ public class PerfilUsuario extends JFrame {
         textField_nombreUsuario.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(textField_nombreUsuario);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
-                
+               
                 JLabel lblIntroduceElNuevo = new JLabel("Introduce una nueva contraseña");
                 lblIntroduceElNuevo.setForeground(new Color(235, 227, 194));
                 lblIntroduceElNuevo.setFont(new Font("Arial", Font.PLAIN, 12));
                 lblIntroduceElNuevo.setAlignmentX(0.0f);
                 panel.add(lblIntroduceElNuevo);
-                
+               
                 Component rigidArea = Box.createRigidArea(new Dimension(0, 5));
                 panel.add(rigidArea);
-                
+               
                 textField_contraseña = new JTextField(15);
                 textField_contraseña.setMaximumSize(new Dimension(150, 22));
                 textField_contraseña.setForeground(new Color(235, 227, 194));
                 textField_contraseña.setBackground(new Color(235, 227, 194));
                 textField_contraseña.setAlignmentX(0.0f);
                 panel.add(textField_contraseña);
-                
+               
                 Component rigidArea_1 = Box.createRigidArea(new Dimension(0, 5));
                 panel.add(rigidArea_1);
-                
+               
                 Component rigidArea_2 = Box.createRigidArea(new Dimension(0, 5));
                 panel.add(rigidArea_2);
-                
+               
                 Component rigidArea_5 = Box.createRigidArea(new Dimension(0, 5));
                 panel.add(rigidArea_5);
-        
+       
                 JButton confirmButton = new JButton("Confirmar Cambios");
                 panel.add(confirmButton);
                 styleActionButton(confirmButton);
-                
+               
                  confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Datos cambiados con exito: " + textField_nombreUsuario.getText()));
 
         return panel;
     }
-
-    private JPanel createRetiradaPanel() {
+   
+   
+    private JPanel createBorrarCuentaPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.setOpaque(false);
-        panel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
+        panel.setOpaque(false); // Mantener la transparencia del fondo
+        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20)); // Márgenes internos
 
-        JLabel title = new JLabel("Sección de Retirada");
-        title.setFont(new Font("Arial", Font.BOLD, 20));
-        title.setForeground(new Color(235, 227, 194));
+        // Título del panel
+        JLabel title = new JLabel("Borrar Cuenta");
+        title.setFont(new Font("Arial", Font.BOLD, 22));
+        title.setForeground(new Color(235, 227, 194)); // Color de texto
         title.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(title);
-        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+        panel.add(Box.createRigidArea(new Dimension(0, 15))); // Espacio
 
-        JLabel instruction = new JLabel("Introduce la cantidad a retirar:");
-        instruction.setForeground(new Color(235, 227, 194));
-        instruction.setFont(new Font("Arial", Font.PLAIN, 12));
-        instruction.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(instruction);
+        // Mensaje de advertencia
+        JLabel warning1 = new JLabel("Estás a punto de borrar tu cuenta.");
+        warning1.setFont(new Font("Arial", Font.PLAIN, 14));
+        warning1.setForeground(new Color(235, 227, 194));
+        warning1.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(warning1);
         panel.add(Box.createRigidArea(new Dimension(0, 5)));
 
-        JTextField amountField = new JTextField(15);
-        amountField.setBackground(new Color(235, 227, 194));
-        amountField.setMaximumSize(new Dimension(150, 22));
-        amountField.setAlignmentX(Component.LEFT_ALIGNMENT);
-        panel.add(amountField);
-        panel.add(Box.createRigidArea(new Dimension(0, 15)));
+        JLabel warning2 = new JLabel("Esta acción es irreversible y perderás todos tus datos.");
+        warning2.setFont(new Font("Arial", Font.BOLD, 12)); // Hazlo un poco más prominente
+        warning2.setForeground(new Color(255, 100, 100)); // Un color más de advertencia (rojo claro)
+        warning2.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(warning2);
+        panel.add(Box.createRigidArea(new Dimension(0, 20))); // Espacio antes de los botones
 
-        JButton confirmButton = new JButton("Confirmar Retirada");
-        confirmButton.setBackground(new Color(235, 227, 194));
-        confirmButton.setAlignmentX(Component.LEFT_ALIGNMENT);
-        styleActionButton(confirmButton);
-        panel.add(confirmButton);
-       
-        confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Retirando: " + amountField.getText()));
+        // Botones de acción
+        JButton btnConfirmarBorrar = new JButton("Confirmar Borrado");
+        styleActionButton(btnConfirmarBorrar); // Reutiliza tu método de estilo
+        btnConfirmarBorrar.setBackground(new Color(178, 34, 34)); // Rojo oscuro para confirmar
+        btnConfirmarBorrar.setAlignmentX(Component.LEFT_ALIGNMENT);
+        panel.add(btnConfirmarBorrar);
+        panel.add(Box.createRigidArea(new Dimension(0, 10)));
+
+        // Añadir ActionListeners a los botones del panel
+        btnConfirmarBorrar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int confirm = JOptionPane.showConfirmDialog(panel,
+                    "¿REALMENTE estás seguro de que quieres borrar tu cuenta? No hay vuelta atrás.",
+                    "Confirmar Borrado de Cuenta",
+                    JOptionPane.YES_NO_OPTION,
+                    JOptionPane.WARNING_MESSAGE);
+
+                if (confirm == JOptionPane.YES_OPTION) {
+                    // Aquí iría la lógica real para borrar la cuenta
+                    // Por ejemplo, llamar a un método en tu lógica de negocio o base de datos.
+                    JOptionPane.showMessageDialog(panel, "Tu cuenta ha sido borrada exitosamente.");
+                    // Después de borrar, podrías redirigir al usuario, cerrar la aplicación, etc.
+                    // Por ejemplo, cerrar la ventana:
+                    SwingUtilities.getWindowAncestor(panel).dispose();
+                    // O volver al panel de "Datos" si no cierras:
+                    // cardLayout.show(mainContentPanel, "Datos");
+                }
+            }
+        });
 
         return panel;
     }
+   
 
     private JPanel createSoportePanel() {
         JPanel panel = new JPanel();

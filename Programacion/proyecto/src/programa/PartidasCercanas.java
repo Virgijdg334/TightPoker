@@ -20,8 +20,6 @@ import java.awt.Graphics;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 
 public class PartidasCercanas extends JFrame {
 
@@ -119,97 +117,37 @@ public class PartidasCercanas extends JFrame {
         panelContenedor.setBackground(new Color(0, 102, 51));
 
         
-        ConexionMySQL con = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
-        try {
+        
+        // Añadiendo paneles de torneo de ejemplo
+        for (int i = 1; i <= 6; i++) {
+            JPanel panelTorneo = new JPanel();
+            panelTorneo.setLayout(null);
+            panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
+            panelTorneo.setBackground(new Color(8, 68, 44));
+            panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
 
-        	// Crear instancia de conexión
+            JLabel lblNombre = new JLabel("Nombre: Torneo " + i);
+            lblNombre.setBounds(10, 10, 200, 20);
+            lblNombre.setForeground(Color.WHITE);
+            panelTorneo.add(lblNombre);
 
-        	con.conectar(); // <-- Esto es obligatorio antes de ejecutar cualquier consulta
+            JLabel lblFecha = new JLabel("Fecha: 01-01-2025");
+            lblFecha.setBounds(10, 30, 200, 20);
+            lblFecha.setForeground(Color.WHITE);
+            panelTorneo.add(lblFecha);
 
-        	ResultSet rs = con.ejecutarSelect("SELECT * FROM casino");
+            JLabel lblPremio = new JLabel("Premio: 100€");
+            lblPremio.setBounds(10, 50, 200, 20);
+            lblPremio.setForeground(Color.WHITE);
+            panelTorneo.add(lblPremio);
 
+            JButton btnInscribir = new JButton("Inscribir");
+            btnInscribir.setBounds(220, 55, 100, 25);
+            btnInscribir.setBackground(new Color(196, 49, 25));
+            btnInscribir.setForeground(Color.WHITE);
+            panelTorneo.add(btnInscribir);
 
-
-
-
-         // Añadiendo paneles de torneo de ejemplo
-
-            int i = 0;
-
-            while (rs.next() && i < 6) {  // Limita a 6 torneos
-
-                // Obtener valores desde la base de datos
-
-                String nombre = rs.getString("nombre");
-
-                String lugar = rs.getString("lugar");
-
-                String n_mesas = rs.getString("n_mesas");
-
-
-
-                // Crear panel
-
-                JPanel panelTorneo = new JPanel();
-
-                panelTorneo.setLayout(null);
-
-                panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
-
-                panelTorneo.setBackground(new Color(8, 68, 44));
-
-                panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
-
-
-
-                JLabel lblNombre = new JLabel("Nombre: " + nombre);
-
-                lblNombre.setBounds(10, 10, 200, 20);
-
-                lblNombre.setForeground(Color.WHITE);
-
-                panelTorneo.add(lblNombre);
-
-
-
-                JLabel lblLugar = new JLabel("Lugar: " + lugar);
-
-                lblLugar.setBounds(10, 30, 200, 20);
-
-                lblLugar.setForeground(Color.WHITE);
-
-                panelTorneo.add(lblLugar);
-
-
-
-                JLabel lblPremio = new JLabel("Numero de mesas: " + n_mesas);
-
-                lblPremio.setBounds(10, 50, 200, 20);
-
-                lblPremio.setForeground(Color.WHITE);
-
-                panelTorneo.add(lblPremio);
-
-
-
-                panelContenedor.add(panelTorneo);
-
-                i++;
-
-            }
-
-
-
-            rs.close();
-
-            con.desconectar();  // Cerrar conexión
-
-
-
-        } catch (SQLException e) {
-
-            e.printStackTrace();
-
+            panelContenedor.add(panelTorneo);
         }
 
         JScrollPane scrollPane = 

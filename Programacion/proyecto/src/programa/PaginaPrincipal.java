@@ -33,12 +33,13 @@ import javax.swing.JSeparator;
 
 public class PaginaPrincipal extends JFrame {
 
-	ConexionMySQL bd = new ConexionMySQL("sql7774423", "sxpS4Av81l" ,"sql7774423");
+	ConexionMySQL conn = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private final JLabel lblfondo = new JLabel("");
 	Usuario actual = SesionUsuario.getUsuario();
+	
 
 	/**
 	 * Launch the application.
@@ -176,6 +177,9 @@ public class PaginaPrincipal extends JFrame {
 		JButton btn_Torneos = new JButton("Torneos");
 		btn_Torneos.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Torneos T1 = new Torneos();
+				dispose();
+				T1.setVisible(true);
 			}
 		});
 		btn_Torneos.setFont(new Font("Tahoma", Font.BOLD, 20));
@@ -205,6 +209,10 @@ public class PaginaPrincipal extends JFrame {
 		JButton btn_cajero = new JButton("Cajero");
 		btn_cajero.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Cajero C1 = new Cajero();
+				dispose();
+				C1.setVisible(true);
+				
 			}
 		});
 		btn_cajero.setOpaque(false);

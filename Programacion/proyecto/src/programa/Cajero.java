@@ -43,7 +43,18 @@ public class Cajero extends JFrame {
     private JLabel lbl_Salario_Texto;
     private JLabel lbl_Cajero_Datos;
 
+    // Usuario actual
+    
+    Usuario actual = SesionUsuario.getUsuario();
+    public String saldoTexto = String.format("%.2f €", actual.getSaldo());
+    public String tarjetaFormateada = String.format("%04d %04d %04d %04d",
+        (actual.getTarjeta() / 1000000000000L) % 10000,
+    	(actual.getTarjeta()  / 100000000L) % 10000,
+    	(actual.getTarjeta()  / 10000L) % 10000,
+    	actual.getTarjeta()  % 10000);
+    
 
+    
     public static void main(String[] args) {
         try {
             UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -187,16 +198,16 @@ public class Cajero extends JFrame {
                                 lbl_Salario_Texto.setForeground(new Color(235, 227, 194));
                                 lbl_Salario_Texto.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 23));
                                
-                                JLabel lbl_Salario_Datos = new JLabel("0");
+                                JLabel lbl_Salario_Datos = new JLabel(saldoTexto);
                                 lbl_Salario_Datos.setForeground(new Color(235, 227, 194));
                                 lbl_Salario_Datos.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 23));
-                                lbl_Salario_Datos.setBounds(289, 348, 17, 25);
+                                lbl_Salario_Datos.setBounds(262, 348, 100, 25);
                                 backgroundPanel.add(lbl_Salario_Datos);
     }
 
     // --- Métodos para crear los paneles de contenido de cada sección ---
 
-    private JPanel createDatosPanel() {
+	private JPanel createDatosPanel() {
    
        JPanel panel = new JPanel();
        panel.setLayout(null);
@@ -229,7 +240,7 @@ public class Cajero extends JFrame {
         lbl_Salario_Texto_1.setBounds(20, 63, 124, 25);
         panel.add(lbl_Salario_Texto_1);
        
-        JLabel lbl_Salario_Texto_1_1 = new JLabel("0000-0000-0000-0000");
+        JLabel lbl_Salario_Texto_1_1 = new JLabel(tarjetaFormateada);
         lbl_Salario_Texto_1_1.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
         lbl_Salario_Texto_1_1.setBounds(20, 94, 155, 25);
@@ -270,6 +281,8 @@ public class Cajero extends JFrame {
         styleActionButton(confirmButton);
         panel.add(confirmButton);
        
+        
+        
         confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Ingresando: " + amountField.getText()));
 
         return panel;

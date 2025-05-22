@@ -119,11 +119,45 @@ public class LoginForm extends JFrame {
 
 	                if (loginSuccess) {
 	                    JOptionPane.showMessageDialog(frame, "Login exitoso");
-	                    Usuario user = new Usuario(nombreUsuario);
-	                    SesionUsuario.setUsuario(user);
-	                    PantallaCarga P1 = new PantallaCarga();	            
-	                    P1.setVisible(true);
-	                    dispose();
+	                   
+	                    try {
+	                    	// Crear instancia de conexión
+	                    	ConexionMySQL con = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
+	                    	con.conectar(); 
+	            	        
+	                    	String query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
+	            	        PreparedStatement stmt = con.getConnection().prepareStatement(query);
+	            	        stmt.setString(1, nombreUsuario);
+	                    	
+	            	        ResultSet rs = stmt.executeQuery();
+	            	        
+	            	        if (rs.next()) {
+		                    	String nombre = rs.getString("nombre");
+	
+		                        String apellidos = rs.getString("apellidos");
+	
+		                        String DNI = rs.getString("dni");
+		                        
+		                        String username = rs.getString("nombreUsuario");
+		                        
+		                        long num_tarjeta = rs.getInt("n_tarjeta");
+		                        
+		                        int num_telefono = rs.getInt("telefono");
+		                        
+		                        double saldo = rs.getInt("saldo");
+		                        
+		                        Usuario user = new Usuario(username,nombre,apellidos,num_telefono,saldo,num_tarjeta);
+			                    SesionUsuario.setUsuario(user);
+	            	        }
+	                    	
+	                    	
+		                    PantallaCarga P1 = new PantallaCarga();	            
+		                    P1.setVisible(true);
+		                    dispose();
+	                    }catch (SQLException ex) {
+	            	        ex.printStackTrace();
+	            	    }
+	                    
 	                } else {
 	                    JOptionPane.showMessageDialog(frame, "Usuario o contraseña incorrectos");
 	                }
@@ -165,7 +199,7 @@ public class LoginForm extends JFrame {
 	    boolean isAuthenticated = false;
 
 	    // Crea una instancia de tu clase de conexión
-	    ConexionMySQL conn = new ConexionMySQL("sql7778758", "kqnAkZuehU", "sql7778758");
+	    ConexionMySQL conn = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
 
 	    try {
 	        conn.conectar();
