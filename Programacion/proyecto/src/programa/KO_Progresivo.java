@@ -147,6 +147,13 @@ public class KO_Progresivo extends JFrame {
         botonRedondo.setBorderPainted(false);
         botonRedondo.setForeground(new Color(5, 66, 47));
         botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+        botonRedondo.addActionListener(new ActionListener(){
+        	public void actionPerformed(ActionEvent e) {
+        		Torneos T1 = new Torneos();
+        		dispose();
+        		T1.setVisible(true);
+        	}
+        });
         getContentPane().add(botonRedondo);
 
         try {

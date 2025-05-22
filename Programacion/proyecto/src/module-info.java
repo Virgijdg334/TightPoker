@@ -4,7 +4,7 @@
 /**
  * 
  */
-module proyecto {
-	requires java.sql;
+module TightPoker {
 	requires java.desktop;
+	requires java.sql;
 }

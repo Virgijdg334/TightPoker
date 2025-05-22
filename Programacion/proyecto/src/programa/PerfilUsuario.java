@@ -40,6 +40,7 @@ public class PerfilUsuario extends JFrame {
     private CardLayout cardLayout;
     private JLabel lbl_Cajero_Datos;
     private JTextField textField_contraseña;
+    Usuario actual = SesionUsuario.getUsuario();
 
 
     public static void main(String[] args) {
