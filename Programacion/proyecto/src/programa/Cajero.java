@@ -38,7 +38,10 @@ public class Cajero extends JFrame {
     private JPanel mainContentPanel; // El recuadro blanco de contenido
     private JPanel menuPanel; // El panel del menú lateral
     private CardLayout cardLayout;
-
+    private JLabel lbl_tarjetaActual;
+    private JLabel lbl_saldoActual;
+    
+    
     // Etiquetas y componentes que se moverán al panel de "Datos"
     private JLabel lbl_Salario_Texto;
     private JLabel lbl_Cajero_Datos;
@@ -151,13 +154,22 @@ public class Cajero extends JFrame {
             }
         };
         botonRedondo.setBounds(518, 181, 60, 60);
-        backgroundPanel.add(botonRedondo);
         botonRedondo.setContentAreaFilled(false);
         botonRedondo.setFocusPainted(false);
         botonRedondo.setBorderPainted(false);
         botonRedondo.setForeground(new Color(5, 66, 47));
         botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-
+        botonRedondo.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		
+        		PaginaPrincipal p1 = new PaginaPrincipal();
+        		dispose();
+        		p1.setVisible(true); 
+        		
+        	}
+        });
+        backgroundPanel.add(botonRedondo);
+        
         backgroundPanel.setLayout(null); // backgroundPanel también con null layout
         backgroundPanel.setBounds(0, 0, getWidth(), getHeight());
         contentPane.add(backgroundPanel);
@@ -238,11 +250,11 @@ public class Cajero extends JFrame {
                                 lbl_Salario_Texto.setForeground(new Color(235, 227, 194));
                                 lbl_Salario_Texto.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 23));
                                
-                                JLabel lbl_Salario_Datos = new JLabel(saldoTexto);
-                                lbl_Salario_Datos.setForeground(new Color(235, 227, 194));
-                                lbl_Salario_Datos.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 23));
-                                lbl_Salario_Datos.setBounds(262, 348, 100, 25);
-                                backgroundPanel.add(lbl_Salario_Datos);
+                                lbl_saldoActual = new JLabel(saldoTexto);
+                                lbl_saldoActual.setForeground(new Color(235, 227, 194));
+                                lbl_saldoActual.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 23));
+                                lbl_saldoActual.setBounds(262, 348, 100, 25);
+                                backgroundPanel.add(lbl_saldoActual);
     }
 
     // --- Métodos para crear los paneles de contenido de cada sección ---
@@ -280,12 +292,57 @@ public class Cajero extends JFrame {
         lbl_Salario_Texto_1.setBounds(20, 63, 124, 25);
         panel.add(lbl_Salario_Texto_1);
        
-        JLabel lbl_Salario_Texto_1_1 = new JLabel(tarjetaFormateada);
-        lbl_Salario_Texto_1_1.setForeground(new Color(235, 227, 194));
-        lbl_Salario_Texto_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_Salario_Texto_1_1.setBounds(20, 94, 155, 25);
-        panel.add(lbl_Salario_Texto_1_1);
+        lbl_tarjetaActual = new JLabel(tarjetaFormateada);
+        lbl_tarjetaActual.setForeground(new Color(235, 227, 194));
+        lbl_tarjetaActual.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
+        lbl_tarjetaActual.setBounds(20, 94, 163, 25);
+        panel.add(lbl_tarjetaActual);
 
+        JButton btnRegistrarTarjeta = new JButton("Registrar Tarjeta");
+        btnRegistrarTarjeta.setBounds(195, 96, 150, 25);
+        btnRegistrarTarjeta.setBackground(new Color(0, 128, 0));
+        btnRegistrarTarjeta.setForeground(Color.WHITE);
+        btnRegistrarTarjeta.addActionListener(e -> {
+            String inputTarjeta = JOptionPane.showInputDialog("Introduce el número de tu tarjeta:");
+            if (inputTarjeta != null && inputTarjeta.matches("\\d{16}")) { // Validación: exactamente 16 dígitos numéricos
+                try {
+                    long tarjetaLong = Long.parseLong(inputTarjeta);
+
+                    ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                    conn.conectar();
+
+                    String sql = "UPDATE usuario SET n_tarjeta = ? WHERE nombreUsuario = ?";
+                    java.sql.PreparedStatement stmt = conn.getConnection().prepareStatement(sql);
+                    stmt.setLong(1, tarjetaLong);
+                    stmt.setString(2, actual.getUser());
+
+                    int filas = stmt.executeUpdate();
+                    if (filas > 0) {
+                        actual.setTarjeta(tarjetaLong);
+                        conn.updateTarjeta(actual.getUser(), tarjetaLong);
+                        JOptionPane.showMessageDialog(null, "✅ Tarjeta registrada correctamente.");
+                        actualizarDatosVisuales();
+                    } else {
+                        JOptionPane.showMessageDialog(null, "⚠️ No se pudo registrar la tarjeta.");
+                    }
+
+                    stmt.close();
+                    conn.desconectar();
+                } catch (NumberFormatException ex) {
+                    JOptionPane.showMessageDialog(null, "❌ El número de tarjeta debe ser numérico.");
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    JOptionPane.showMessageDialog(null, "❌ Error en la base de datos.");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "❌ Número de tarjeta inválido. Deben ser exactamente 16 dígitos.");
+            }
+        });
+
+        
+
+        panel.add(btnRegistrarTarjeta);
+        
         return panel;
     }
 
@@ -311,7 +368,7 @@ public class Cajero extends JFrame {
 
         JTextField amountField = new JTextField(15); // Tamaño de columna sugerido
         amountField.setBackground(new Color(235, 227, 194));
-        amountField.setForeground(new Color(235, 227, 194));
+        amountField.setForeground(new Color(0, 0, 0));
         amountField.setMaximumSize(new Dimension(150, 22)); // Tamaño fijo
         amountField.setAlignmentX(Component.LEFT_ALIGNMENT);
         panel.add(amountField);
@@ -320,10 +377,29 @@ public class Cajero extends JFrame {
         JButton confirmButton = new JButton("Confirmar Ingreso");
         styleActionButton(confirmButton);
         panel.add(confirmButton);
-       
-        
-        
-        confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Ingresando: " + amountField.getText()));
+        confirmButton.addActionListener(e -> {
+            if (actual.getTarjeta() == 0) {
+                JOptionPane.showMessageDialog(panel, "❌ Debes registrar una tarjeta antes de ingresar dinero.");
+                return;
+            }
+            try {
+                double cantidad = Double.parseDouble(amountField.getText());
+                actual.setSaldo(actual.getSaldo() + cantidad);
+                ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                conn.conectar();
+                String sql = "UPDATE usuario SET saldo = ? WHERE nombreUsuario = ?";
+                java.sql.PreparedStatement stmt = conn.getConnection().prepareStatement(sql);
+                stmt.setDouble(1, actual.getSaldo());
+                stmt.setString(2, actual.getUser());
+                stmt.executeUpdate();
+                stmt.close();
+                conn.desconectar();
+                JOptionPane.showMessageDialog(panel, "✅ Ingreso realizado correctamente.");
+                actualizarDatosVisuales();
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "❌ Error al ingresar: " + ex.getMessage());
+            }
+        });
 
         return panel;
     }
@@ -360,8 +436,29 @@ public class Cajero extends JFrame {
         confirmButton.setAlignmentX(Component.LEFT_ALIGNMENT);
         styleActionButton(confirmButton);
         panel.add(confirmButton);
-       
-        confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Retirando: " + amountField.getText()));
+        confirmButton.addActionListener(e -> {
+            try {
+                double cantidad = Double.parseDouble(amountField.getText());
+                if (actual.getSaldo() >= cantidad) {
+                    actual.setSaldo(actual.getSaldo() - cantidad);
+                    ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                    conn.conectar();
+                    String sql = "UPDATE usuario SET saldo = ? WHERE nombreUsuario = ?";
+                    java.sql.PreparedStatement stmt = conn.getConnection().prepareStatement(sql);
+                    stmt.setDouble(1, actual.getSaldo());
+                    stmt.setString(2, actual.getUser());
+                    stmt.executeUpdate();
+                    stmt.close();
+                    conn.desconectar();
+                    JOptionPane.showMessageDialog(panel, "✅ Retirada completada.");
+                    actualizarDatosVisuales();
+                } else {
+                    JOptionPane.showMessageDialog(panel, "❌ Saldo insuficiente.");
+                }
+            } catch (Exception ex) {
+                JOptionPane.showMessageDialog(panel, "❌ Error al retirar: " + ex.getMessage());
+            }
+        });
 
         return panel;
     }
@@ -458,4 +555,20 @@ public class Cajero extends JFrame {
         button.setBorder(new LineBorder(new Color(0, 0, 0), 0));
         button.setPreferredSize(new Dimension(40, 40)); // Más compactos
     }
+    
+    // Método para actualizar visualmente los valores
+ // Método para actualizar visualmente los valores
+    private void actualizarDatosVisuales() {
+        tarjetaFormateada = String.format("%04d %04d %04d %04d",
+            (actual.getTarjeta() / 1000000000000L) % 10000,
+            (actual.getTarjeta() / 100000000L) % 10000,
+            (actual.getTarjeta() / 10000L) % 10000,
+            actual.getTarjeta() % 10000);
+        
+        saldoTexto = String.format("%.2f €", actual.getSaldo());
+
+        lbl_tarjetaActual.setText(tarjetaFormateada);
+        lbl_saldoActual.setText(saldoTexto);
+    }
+
 }

@@ -41,7 +41,17 @@ public class PerfilUsuario extends JFrame {
     private JLabel lbl_Cajero_Datos;
     private JTextField textField_contraseña;
     Usuario actual = SesionUsuario.getUsuario();
-
+    //Usuario actual = new Usuario("jank","jose","jimenez",616778911,1000.0,1234123412341234L);
+    public String saldoTexto = String.format("%.2f €", actual.getSaldo());
+    public String num_tlf = String.format("%s %s %s", 
+    	    String.valueOf(actual.getTelefono()).substring(0, 3),
+    	    String.valueOf(actual.getTelefono()).substring(3, 6),
+    	    String.valueOf(actual.getTelefono()).substring(6, 9));
+    public String tarjetaFormateada = String.format("%04d %04d %04d %04d",
+        (actual.getTarjeta() / 1000000000000L) % 10000,
+    	(actual.getTarjeta()  / 100000000L) % 10000,
+    	(actual.getTarjeta()  / 10000L) % 10000,
+    	actual.getTarjeta()  % 10000);
 
     public static void main(String[] args) {
         try {
@@ -243,52 +253,52 @@ if (imageUrl != null) {
         lblDatos.setBounds(20, 3, 196, 24);
         panel.add(lblDatos);
        
-        JLabel lbl_Salario_Texto_1 = new JLabel("Nombre");
+        JLabel lbl_Salario_Texto_1 = new JLabel("Nombre:");
         lbl_Salario_Texto_1.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_Salario_Texto_1.setBounds(20, 33, 59, 25);
+        lbl_Salario_Texto_1.setBounds(20, 33, 68, 25);
         panel.add(lbl_Salario_Texto_1);
        
         JLabel lbl_Salario_Texto_1_1 = new JLabel("Apellidos:");
         lbl_Salario_Texto_1_1.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_1.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_Salario_Texto_1_1.setBounds(20, 67, 68, 25);
+        lbl_Salario_Texto_1_1.setBounds(20, 67, 79, 25);
         panel.add(lbl_Salario_Texto_1_1);
        
         JLabel lbl_Salario_Texto_1_2 = new JLabel("Nombre de Usuario:");
         lbl_Salario_Texto_1_2.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_2.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_Salario_Texto_1_2.setBounds(20, 104, 124, 25);
+        lbl_Salario_Texto_1_2.setBounds(20, 104, 156, 25);
         panel.add(lbl_Salario_Texto_1_2);
        
         JLabel lbl_Salario_Texto_1_3 = new JLabel("Numero de Teléfono:");
         lbl_Salario_Texto_1_3.setForeground(new Color(235, 227, 194));
         lbl_Salario_Texto_1_3.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_Salario_Texto_1_3.setBounds(20, 141, 131, 25);
+        lbl_Salario_Texto_1_3.setBounds(20, 141, 156, 25);
         panel.add(lbl_Salario_Texto_1_3);
        
-        JLabel lbl_nombre = new JLabel("");
+        JLabel lbl_nombre = new JLabel(actual.getNombre());
         lbl_nombre.setForeground(new Color(235, 227, 194));
         lbl_nombre.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_nombre.setBounds(101, 33, 59, 25);
+        lbl_nombre.setBounds(117, 33, 117, 25);
         panel.add(lbl_nombre);
        
-        JLabel lbl_apellidos = new JLabel("");
+        JLabel lbl_apellidos = new JLabel(actual.getApellidos());
         lbl_apellidos.setForeground(new Color(235, 227, 194));
         lbl_apellidos.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_apellidos.setBounds(101, 67, 59, 25);
+        lbl_apellidos.setBounds(101, 67, 191, 25);
         panel.add(lbl_apellidos);
        
-        JLabel lbl_nombreUsuario = new JLabel("");
+        JLabel lbl_nombreUsuario = new JLabel(actual.getUser());
         lbl_nombreUsuario.setForeground(new Color(235, 227, 194));
         lbl_nombreUsuario.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_nombreUsuario.setBounds(163, 104, 59, 25);
+        lbl_nombreUsuario.setBounds(175, 104, 117, 25);
         panel.add(lbl_nombreUsuario);
        
-        JLabel lbl_telefono = new JLabel("");
+        JLabel lbl_telefono = new JLabel(num_tlf);
         lbl_telefono.setForeground(new Color(235, 227, 194));
         lbl_telefono.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 16));
-        lbl_telefono.setBounds(163, 141, 59, 25);
+        lbl_telefono.setBounds(175, 141, 144, 25);
         panel.add(lbl_telefono);
 
         return panel;
@@ -307,7 +317,7 @@ if (imageUrl != null) {
         panel.add(title);
         panel.add(Box.createRigidArea(new Dimension(0, 10))); // Espacio ajustado
 
-        JLabel instruction = new JLabel("Introduce el nuevo usuario");
+        JLabel instruction = new JLabel("Introduce el nombre de usuario que deseas:");
         instruction.setForeground(new Color(235, 227, 194));
         instruction.setFont(new Font("Arial", Font.PLAIN, 12)); // Fuente más pequeña
         instruction.setAlignmentX(Component.LEFT_ALIGNMENT);
@@ -322,7 +332,7 @@ if (imageUrl != null) {
         panel.add(textField_nombreUsuario);
         panel.add(Box.createRigidArea(new Dimension(0, 15)));
                
-                JLabel lblIntroduceElNuevo = new JLabel("Introduce una nueva contraseña");
+                JLabel lblIntroduceElNuevo = new JLabel("Introduce tu contraseña");
                 lblIntroduceElNuevo.setForeground(new Color(235, 227, 194));
                 lblIntroduceElNuevo.setFont(new Font("Arial", Font.PLAIN, 12));
                 lblIntroduceElNuevo.setAlignmentX(0.0f);
@@ -350,8 +360,56 @@ if (imageUrl != null) {
                 JButton confirmButton = new JButton("Confirmar Cambios");
                 panel.add(confirmButton);
                 styleActionButton(confirmButton);
-               
-                 confirmButton.addActionListener(e -> JOptionPane.showMessageDialog(panel, "Datos cambiados con exito: " + textField_nombreUsuario.getText()));
+                confirmButton.addActionListener(e -> {
+                    String nuevoUsuario = textField_nombreUsuario.getText().trim();
+                    String contraseñaIngresada = textField_contraseña.getText().trim();
+
+                    if (nuevoUsuario.isEmpty() || contraseñaIngresada.isEmpty()) {
+                        JOptionPane.showMessageDialog(panel, "Por favor, completa todos los campos.");
+                        return;
+                    }
+
+                    try {
+                        ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                        conn.conectar();
+
+                        // Verificar la contraseña actual del usuario
+                        String sqlCheck = "SELECT * FROM usuario WHERE nombreUsuario = ? AND contraseña = ?";
+                        java.sql.PreparedStatement stmtCheck = conn.getConnection().prepareStatement(sqlCheck);
+                        stmtCheck.setString(1, actual.getUser());
+                        stmtCheck.setString(2, contraseñaIngresada);
+                        java.sql.ResultSet rs = stmtCheck.executeQuery();
+
+                        if (!rs.next()) {
+                            JOptionPane.showMessageDialog(panel, "❌ Contraseña incorrecta. No se puede modificar el nombre de usuario.");
+                        } else {
+                            // La contraseña es correcta, proceder a modificar el nombre de usuario
+                            String sqlUpdate = "UPDATE usuario SET nombreUsuario = ? WHERE nombreUsuario = ?";
+                            java.sql.PreparedStatement stmtUpdate = conn.getConnection().prepareStatement(sqlUpdate);
+                            stmtUpdate.setString(1, nuevoUsuario);
+                            stmtUpdate.setString(2, actual.getUser());
+                            int filas = stmtUpdate.executeUpdate();
+
+                            if (filas > 0) {
+                                JOptionPane.showMessageDialog(panel, "✅ Nombre de usuario modificado con éxito.");
+                                actual.setNombre_Usuario(nuevoUsuario);  // Actualizar el objeto en memoria
+                            } else {
+                                JOptionPane.showMessageDialog(panel, "⚠️ No se pudo actualizar el nombre de usuario.");
+                            }
+
+                            stmtUpdate.close();
+                        }
+
+                        rs.close();
+                        stmtCheck.close();
+                        conn.desconectar();
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(panel, "❌ Error al modificar nombre de usuario: " + ex.getMessage());
+                    }
+                });
+
 
         return panel;
     }
@@ -405,17 +463,33 @@ if (imageUrl != null) {
                     JOptionPane.WARNING_MESSAGE);
 
                 if (confirm == JOptionPane.YES_OPTION) {
-                    // Aquí iría la lógica real para borrar la cuenta
-                    // Por ejemplo, llamar a un método en tu lógica de negocio o base de datos.
-                    JOptionPane.showMessageDialog(panel, "Tu cuenta ha sido borrada exitosamente.");
-                    // Después de borrar, podrías redirigir al usuario, cerrar la aplicación, etc.
-                    // Por ejemplo, cerrar la ventana:
-                    SwingUtilities.getWindowAncestor(panel).dispose();
-                    // O volver al panel de "Datos" si no cierras:
-                    // cardLayout.show(mainContentPanel, "Datos");
+                    try {
+                        ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                        conn.conectar();
+
+                        String sqlDelete = "DELETE FROM usuario WHERE nombreUsuario = ?";
+                        java.sql.PreparedStatement stmtDelete = conn.getConnection().prepareStatement(sqlDelete);
+                        stmtDelete.setString(1, actual.getUser());
+
+                        int filas = stmtDelete.executeUpdate();
+                        stmtDelete.close();
+                        conn.desconectar();
+
+                        if (filas > 0) {
+                            JOptionPane.showMessageDialog(panel, "✅ Tu cuenta ha sido borrada exitosamente.");
+                            SwingUtilities.getWindowAncestor(panel).dispose(); // Cierra la ventana
+                        } else {
+                            JOptionPane.showMessageDialog(panel, "❌ No se encontró la cuenta en la base de datos.");
+                        }
+
+                    } catch (Exception ex) {
+                        ex.printStackTrace();
+                        JOptionPane.showMessageDialog(panel, "❌ Error al borrar la cuenta: " + ex.getMessage());
+                    }
                 }
             }
         });
+
 
         return panel;
     }

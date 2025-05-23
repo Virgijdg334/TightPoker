@@ -97,7 +97,7 @@ public class PartidasCercanas extends JFrame {
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
+        ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
 
         try {
             con.conectar();
@@ -170,7 +170,7 @@ public class PartidasCercanas extends JFrame {
                 botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
                 botonRedondo.addActionListener(new ActionListener(){
                 	public void actionPerformed(ActionEvent e) {
-                		Torneos T1 = new Torneos();
+                		PaginaPrincipal T1 = new PaginaPrincipal();
                 		dispose();
                 		T1.setVisible(true);
                 	}

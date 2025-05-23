@@ -75,6 +75,11 @@ public class Usuario {
 	public void setSaldo(double nuevoSaldo) {
 		this.saldo = nuevoSaldo;
 	}
+
+	public void setTarjeta(long nuevaTarjeta) {
+		this.num_tarjeta = nuevaTarjeta;
+		
+	}
     
 	
 }

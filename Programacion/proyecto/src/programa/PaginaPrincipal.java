@@ -33,7 +33,7 @@ import javax.swing.JSeparator;
 
 public class PaginaPrincipal extends JFrame {
 
-	ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
+	ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -104,6 +104,7 @@ public class PaginaPrincipal extends JFrame {
 		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				PartidasCercanas P1 = new PartidasCercanas();
+				dispose();
 				P1.setVisible(true);
 				
 			}
@@ -149,7 +150,15 @@ public class PaginaPrincipal extends JFrame {
 		botonRedondo.setBorderPainted(false);
 		botonRedondo.setForeground(new Color(235, 227, 194));
 		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-
+		 botonRedondo.addActionListener(new ActionListener() {
+	        	public void actionPerformed(ActionEvent e) {
+	        		
+	        		PerfilUsuario p1 = new PerfilUsuario();
+	        		dispose();
+	        		p1.setVisible(true); 		
+	        	}
+	        });
+		
 		getContentPane().add(botonRedondo);
 		
 		btn_Partidas_Cercanas.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -214,14 +223,6 @@ public class PaginaPrincipal extends JFrame {
 		contentPane.add(btn_Partidas_Cercanas);
 		
 		JButton btn_cajero = new JButton("Cajero");
-		btn_cajero.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Cajero C1 = new Cajero();
-				dispose();
-				C1.setVisible(true);
-				
-			}
-		});
 		btn_cajero.setOpaque(false);
 		btn_cajero.setForeground(Color.WHITE);
 		btn_cajero.setFont(new Font("Tahoma", Font.BOLD, 18));
@@ -230,6 +231,14 @@ public class PaginaPrincipal extends JFrame {
 		btn_cajero.setBorderPainted(false);
 		btn_cajero.setBackground(new Color(196, 49, 25));
 		btn_cajero.setBounds(167, 559, 151, 43);
+		btn_cajero.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Cajero C1 = new Cajero();
+				dispose();
+				C1.setVisible(true);
+				
+			}
+		});
 		contentPane.add(btn_cajero);
 		
 		btn_cajero.setUI(new BasicButtonUI() {

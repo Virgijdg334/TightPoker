@@ -119,4 +119,13 @@ public class ConexionMySQL {
 
         return fila;
     }
+    public void updateTarjeta(String nombreUsuario, long nuevaTarjeta) throws Exception {
+        String sql = "UPDATE usuario SET n_tarjeta = ? WHERE nombreUsuario = ?";
+        java.sql.PreparedStatement stmt = connection.prepareStatement(sql);
+        stmt.setLong(1, nuevaTarjeta);
+        stmt.setString(2, nombreUsuario);
+        stmt.executeUpdate();
+        stmt.close();
+    }
+
 }

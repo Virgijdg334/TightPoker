@@ -10,6 +10,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFrame;
@@ -25,6 +26,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.text.ParseException;
@@ -109,6 +111,9 @@ public class LoginForm extends JFrame {
 		contentPane.add(textField_nombre_usuario);
 		textField_nombre_usuario.setColumns(10);
 		
+		
+		
+		
 		JButton btn_login = new JButton("Log In");
 		btn_login.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -122,7 +127,7 @@ public class LoginForm extends JFrame {
 	                   
 	                    try {
 	                    	// Crear instancia de conexión
-	                    	ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
+	                    	ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
 	                    	con.conectar(); 
 	            	        
 	                    	String query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
@@ -140,7 +145,7 @@ public class LoginForm extends JFrame {
 		                        
 		                        String username = rs.getString("nombreUsuario");
 		                        
-		                        long num_tarjeta = rs.getInt("n_tarjeta");
+		                        long num_tarjeta = rs.getLong("n_tarjeta");
 		                        
 		                        int num_telefono = rs.getInt("telefono");
 		                        
@@ -199,7 +204,7 @@ public class LoginForm extends JFrame {
 	    boolean isAuthenticated = false;
 
 	    // Crea una instancia de tu clase de conexión
-	    ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
+	    ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
 
 	    try {
 	        conn.conectar();

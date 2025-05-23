@@ -5,6 +5,7 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.Image;
 import java.awt.RenderingHints;
 import javax.swing.text.MaskFormatter;
 import javax.swing.JFrame;
@@ -20,6 +21,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComponent;
 import javax.swing.text.MaskFormatter;
 import java.awt.event.ActionListener;
+import java.net.URL;
 import java.awt.event.ActionEvent;
 import javax.swing.JFormattedTextField;
 import java.text.ParseException;
@@ -178,6 +180,54 @@ public class RegisterForm extends JFrame {
 		contentPane.add(textField_nombre_usuario);
 		textField_nombre_usuario.setColumns(10);
 		
+		URL imageUrl = getClass().getResource("/imagenes/casa.png");
+		ImageIcon icon = null;
+
+		if (imageUrl != null) {
+			icon = new ImageIcon(imageUrl);
+			Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			icon = new ImageIcon(image);
+		} else {
+			System.out.println("Imagen no encontrada");
+			// Puedes usar un icono por defecto si falla
+			icon = new ImageIcon(); // o poner null si lo prefieres
+		}
+
+		// Crear el botón redondo con el ícono cargado
+		JButton botonRedondo3 = new JButton(icon) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				g.fillOval(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+
+			@Override
+			protected void paintBorder(Graphics g) {
+				g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+			}
+
+			@Override
+			public boolean contains(int x, int y) {
+				int radius = getWidth() / 2;
+				return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+			}
+		};
+		botonRedondo3.setBounds( 213, 635, 60, 60);
+		botonRedondo3.setContentAreaFilled(false);
+		botonRedondo3.setFocusPainted(false);
+		botonRedondo3.setBorderPainted(false);
+		botonRedondo3.setForeground(new Color(6, 66, 47));
+		botonRedondo3.setFont(new Font("Arial", Font.BOLD, 16));
+		botonRedondo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PokerGUI p1 = new PokerGUI();
+				dispose();
+				p1.setVisible(true);
+			}
+		});
+		
+		getContentPane().add(botonRedondo3);
+		
 		JButton btn_formulario = new JButton("Registrarse");
 		btn_formulario.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -210,14 +260,14 @@ public class RegisterForm extends JFrame {
 		        
 		        try {
 		            // Establecer conexión a la base de datos
-		        	ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
+		        	ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
                     conn.conectar();
 
                     String sql = "INSERT INTO usuario (nombre, apellidos, nombreUsuario, contraseña, edad, telefono, dni, codigoPostal) VALUES ('" + nombre + "', '" + apellidos + "', '" + nombreUsuario + "', '" + contraseña + "', '" + edad + "', '" + telefono + "', '" + dni + "', '" + codigoPostal + "')";
                     conn.ejecutarInsertDeleteUpdate(sql);
 
 		            // Simulación de registro exitoso
-		            JOptionPane.showMessageDialog(null, "¡Registro exitoso!");
+		            JOptionPane.showMessageDialog(null, "¡Registro exitoso! Ahora dirigete a la pagina de Log In e ingresa las credenciales de tu cuenta.");
 		            // Limpiar campos después del registro
 		            textField_nombre.setText("");
 		            textField_apellidos.setText("");
@@ -229,7 +279,7 @@ public class RegisterForm extends JFrame {
 		            textField_codigo_postal.setText("");
 		            CheckBox_Terminos.setSelected(false);
 		            
-		            PantallaCarga P1 = new PantallaCarga();	            
+		            PantallaCarga2 P1 = new PantallaCarga2();	            
                     P1.setVisible(true);
                     dispose();
 

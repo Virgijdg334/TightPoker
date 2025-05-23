@@ -191,6 +191,14 @@ public class Torneos extends JFrame {
 		botonRedondo3.setBorderPainted(false);
 		botonRedondo3.setForeground(new Color(6, 66, 47));
 		botonRedondo3.setFont(new Font("Arial", Font.BOLD, 16));
+		botonRedondo3.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				PaginaPrincipal p1 = new PaginaPrincipal();
+				dispose();
+				p1.setVisible(true);
+			}
+		});
+		
 		getContentPane().add(botonRedondo3);
 		
 

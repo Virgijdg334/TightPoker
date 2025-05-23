@@ -14,7 +14,7 @@ public class PokerGUI extends JFrame {
     private static final long serialVersionUID = 1L;
 
     // Conexión a la base de datos
-    ConexionMySQL bd = new ConexionMySQL("root", "password", "sql7780337");
+    ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
 
     // Componentes de la GUI
     private JPanel contentPane;

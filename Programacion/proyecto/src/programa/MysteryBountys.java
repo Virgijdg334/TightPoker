@@ -105,8 +105,8 @@ public class MysteryBountys extends JFrame {
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
-
+        ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
+        
         try {
             con.conectar();
             ResultSet rs = con.ejecutarSelect("SELECT * FROM torneo WHERE tipo = 'MysteryBounty'");
