@@ -105,20 +105,20 @@ public class Torneos extends JFrame {
 			}
 		});
 		
-		URL imageUrl = getClass().getResource("/imagenes/fotoperfil3.png");
-        ImageIcon icon = null;
-        if (imageUrl != null) {
-            icon = new ImageIcon(imageUrl);
-            Image image = icon.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(image);
+		URL imageUrl1 = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon icon1 = null;
+        if (imageUrl1 != null) {
+            icon1 = new ImageIcon(imageUrl1);
+            Image image = icon1.getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH);
+            icon1 = new ImageIcon(image);
         } else {
             System.out.println("Imagen no encontrada");
             // Puedes usar un icono por defecto si falla
-            icon = new ImageIcon(); // o poner null si lo prefieres
+            icon1 = new ImageIcon(); // o poner null si lo prefieres
         }
 
 
-		JButton botonRedondo = new JButton(icon) {
+		JButton botonRedondo = new JButton(icon1) {
 		    @Override
 		    protected void paintComponent(Graphics g) {
 		        if (getModel().isArmed()) {
@@ -152,11 +152,48 @@ public class Torneos extends JFrame {
 
 		getContentPane().add(botonRedondo);
 
-		JLabel lblSaldo = new JLabel("Saldo:");
-		lblSaldo.setForeground(new Color(235, 227, 194));
-		lblSaldo.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
-		lblSaldo.setBounds(124, 631, 60, 29);
-		contentPane.add(lblSaldo);
+		
+		URL imageUrl = getClass().getResource("/imagenes/casa.png");
+		ImageIcon icon = null;
+
+		if (imageUrl != null) {
+			icon = new ImageIcon(imageUrl);
+			Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+			icon = new ImageIcon(image);
+		} else {
+			System.out.println("Imagen no encontrada");
+			// Puedes usar un icono por defecto si falla
+			icon = new ImageIcon(); // o poner null si lo prefieres
+		}
+
+		// Crear el botón redondo con el ícono cargado
+		JButton botonRedondo3 = new JButton(icon) {
+			@Override
+			protected void paintComponent(Graphics g) {
+				g.fillOval(0, 0, getWidth(), getHeight());
+				super.paintComponent(g);
+			}
+
+			@Override
+			protected void paintBorder(Graphics g) {
+				g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+			}
+
+			@Override
+			public boolean contains(int x, int y) {
+				int radius = getWidth() / 2;
+				return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+			}
+		};
+		botonRedondo3.setBounds( 213, 620, 60, 60);
+		botonRedondo3.setContentAreaFilled(false);
+		botonRedondo3.setFocusPainted(false);
+		botonRedondo3.setBorderPainted(false);
+		botonRedondo3.setForeground(new Color(6, 66, 47));
+		botonRedondo3.setFont(new Font("Arial", Font.BOLD, 16));
+		getContentPane().add(botonRedondo3);
+		
+
 		
 		btn_KO_Progresivo.setFont(new Font("Tahoma", Font.BOLD, 18));
 		btn_KO_Progresivo.setForeground(Color.WHITE);

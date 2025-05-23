@@ -96,7 +96,9 @@ public class PaginaPrincipal extends JFrame {
 						    }
 						});
 
-
+					
+		
+						
 		
 		JButton btn_Partidas_Cercanas = new JButton("Partidas Cercanas");
 		btn_Partidas_Cercanas.addActionListener(new ActionListener() {
@@ -121,6 +123,7 @@ public class PaginaPrincipal extends JFrame {
 		}
 
 		// Crear el botón redondo con el ícono cargado
+		
 		JButton botonRedondo = new JButton(icon1) {
 		    @Override
 		    protected void paintComponent(Graphics g) {
@@ -140,7 +143,7 @@ public class PaginaPrincipal extends JFrame {
 		    }
 		};
 
-		botonRedondo.setBounds(200, 181, 60, 60);
+		botonRedondo.setBounds(213, 58, 60, 60);
 		botonRedondo.setContentAreaFilled(false);
 		botonRedondo.setFocusPainted(false);
 		botonRedondo.setBorderPainted(false);
@@ -158,71 +161,10 @@ public class PaginaPrincipal extends JFrame {
 		btn_Partidas_Cercanas.setOpaque(false);
 		btn_Partidas_Cercanas.setBounds(133, 415, 228, 78);
 
-		URL imageUrl = getClass().getResource("/imagenes/casa.png");
-		ImageIcon icon = null;
-
-		if (imageUrl != null) {
-			icon = new ImageIcon(imageUrl);
-			Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-			icon = new ImageIcon(image);
-		} else {
-			System.out.println("Imagen no encontrada");
-			// Puedes usar un icono por defecto si falla
-			icon = new ImageIcon(); // o poner null si lo prefieres
-		}
+		
 
 		// Crear el botón redondo con el ícono cargado
-		JButton botonRedondo3 = new JButton(icon) {
-			@Override
-			protected void paintComponent(Graphics g) {
-				g.fillOval(0, 0, getWidth(), getHeight());
-				super.paintComponent(g);
-			}
 
-			@Override
-			protected void paintBorder(Graphics g) {
-				g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
-			}
-
-			@Override
-			public boolean contains(int x, int y) {
-				int radius = getWidth() / 2;
-				return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
-			}
-		};
-		botonRedondo.setBounds( 213, 412, 60, 60);
-		botonRedondo.setContentAreaFilled(false);
-		botonRedondo.setFocusPainted(false);
-		botonRedondo.setBorderPainted(false);
-		botonRedondo.setForeground(new Color(5, 66, 47));
-		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-		getContentPane().add(botonRedondo);
-
-		// Crear el botón redondo con el ícono cargado
-		JButton botonRedondo2 = new JButton(icon) {
-			@Override
-			protected void paintComponent(Graphics g) {
-				g.fillOval(0, 0, getWidth(), getHeight());
-				super.paintComponent(g);
-			}
-
-			@Override
-			protected void paintBorder(Graphics g) {
-				g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
-			}
-
-			@Override
-			public boolean contains(int x, int y) {
-				int radius = getWidth() / 2;
-				return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
-			}
-		};
-		botonRedondo.setBounds(518, 181, 60, 60);
-		botonRedondo.setContentAreaFilled(false);
-		botonRedondo.setFocusPainted(false);
-		botonRedondo.setBorderPainted(false);
-		botonRedondo.setForeground(new Color(5, 66, 47));
-		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
 
 		// Dibujar el fondo redondeado
 		btn_Partidas_Cercanas.setUI(new BasicButtonUI() {

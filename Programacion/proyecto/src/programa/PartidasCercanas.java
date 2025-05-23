@@ -88,8 +88,8 @@ public class PartidasCercanas extends JFrame {
 
         JLabel lbl_Mystery_Bountys = new JLabel("Partidas Cercanas");
         lbl_Mystery_Bountys.setForeground(new Color(235, 227, 194));
-        lbl_Mystery_Bountys.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 40));
-        lbl_Mystery_Bountys.setBounds(148, 26, 262, 95);
+        lbl_Mystery_Bountys.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 34));
+        lbl_Mystery_Bountys.setBounds(148, 32, 262, 95);
         contentPane.add(lbl_Mystery_Bountys);
 
         JPanel panelContenedor = new JPanel();
