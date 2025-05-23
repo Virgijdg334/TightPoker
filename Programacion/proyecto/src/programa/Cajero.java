@@ -308,7 +308,7 @@ public class Cajero extends JFrame {
                 try {
                     long tarjetaLong = Long.parseLong(inputTarjeta);
 
-                    ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                    ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                     conn.conectar();
 
                     String sql = "UPDATE usuario SET n_tarjeta = ? WHERE nombreUsuario = ?";
@@ -385,7 +385,7 @@ public class Cajero extends JFrame {
             try {
                 double cantidad = Double.parseDouble(amountField.getText());
                 actual.setSaldo(actual.getSaldo() + cantidad);
-                ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                 conn.conectar();
                 String sql = "UPDATE usuario SET saldo = ? WHERE nombreUsuario = ?";
                 java.sql.PreparedStatement stmt = conn.getConnection().prepareStatement(sql);
@@ -441,7 +441,7 @@ public class Cajero extends JFrame {
                 double cantidad = Double.parseDouble(amountField.getText());
                 if (actual.getSaldo() >= cantidad) {
                     actual.setSaldo(actual.getSaldo() - cantidad);
-                    ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                    ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                     conn.conectar();
                     String sql = "UPDATE usuario SET saldo = ? WHERE nombreUsuario = ?";
                     java.sql.PreparedStatement stmt = conn.getConnection().prepareStatement(sql);

@@ -133,18 +133,18 @@ public class PerfilUsuario extends JFrame {
         int menuX = 50; // Margen izquierdo
         int menuY = (getHeight() / 2) - (menuHeight / 2); // Centrado verticalmente
        
-URL imageUrl = getClass().getResource("/imagenes/volver1.png");
-ImageIcon icon = null;
+        URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+        ImageIcon icon = null;
 
-if (imageUrl != null) {
-   icon = new ImageIcon(imageUrl);
-   Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-   icon = new ImageIcon(image);
-} else {
-   System.out.println("Imagen no encontrada");
-   // Puedes usar un icono por defecto si falla
-   icon = new ImageIcon(); // o poner null si lo prefieres
-}
+        if (imageUrl != null) {
+           icon = new ImageIcon(imageUrl);
+           Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+           icon = new ImageIcon(image);
+        } else {
+           System.out.println("Imagen no encontrada");
+           // Puedes usar un icono por defecto si falla
+           icon = new ImageIcon(); // o poner null si lo prefieres
+        }
        
         // Crear el botón redondo con el ícono cargado
         JButton botonRedondo = new JButton(icon) {
@@ -172,6 +172,13 @@ if (imageUrl != null) {
         botonRedondo.setBorderPainted(false);
         botonRedondo.setForeground(new Color(5, 66, 47));
         botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+        botonRedondo.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e) {
+                PaginaPrincipal T1 = new PaginaPrincipal();
+                dispose();
+                T1.setVisible(true);
+            }
+        });
        
         menuPanel.setBounds(58, 126, 100, 178);
         backgroundPanel.add(menuPanel);
@@ -370,7 +377,7 @@ if (imageUrl != null) {
                     }
 
                     try {
-                        ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                        ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                         conn.conectar();
 
                         // Verificar la contraseña actual del usuario
@@ -464,7 +471,7 @@ if (imageUrl != null) {
 
                 if (confirm == JOptionPane.YES_OPTION) {
                     try {
-                        ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+                        ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                         conn.conectar();
 
                         String sqlDelete = "DELETE FROM usuario WHERE nombreUsuario = ?";

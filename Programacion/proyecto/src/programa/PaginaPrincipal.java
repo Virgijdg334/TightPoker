@@ -33,7 +33,7 @@ import javax.swing.JSeparator;
 
 public class PaginaPrincipal extends JFrame {
 
-	ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
+	ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -150,14 +150,14 @@ public class PaginaPrincipal extends JFrame {
 		botonRedondo.setBorderPainted(false);
 		botonRedondo.setForeground(new Color(235, 227, 194));
 		botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-		 botonRedondo.addActionListener(new ActionListener() {
-	        	public void actionPerformed(ActionEvent e) {
+		botonRedondo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
 	        		
-	        		PerfilUsuario p1 = new PerfilUsuario();
-	        		dispose();
-	        		p1.setVisible(true); 		
-	        	}
-	        });
+				PerfilUsuario p1 = new PerfilUsuario();
+				dispose();
+				p1.setVisible(true);
+			}
+		});
 		
 		getContentPane().add(botonRedondo);
 		

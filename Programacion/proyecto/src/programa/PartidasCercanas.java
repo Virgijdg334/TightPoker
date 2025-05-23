@@ -85,6 +85,13 @@ public class PartidasCercanas extends JFrame {
         botonRedondo1.setForeground(new Color(235, 227, 194));
         botonRedondo1.setFont(new Font("Arial", Font.BOLD, 16));
         getContentPane().add(botonRedondo1);
+        botonRedondo1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PerfilUsuario p1 = new PerfilUsuario();
+                dispose();
+                p1.setVisible(true);
+            }
+        });
 
         JLabel lbl_Mystery_Bountys = new JLabel("Partidas Cercanas");
         lbl_Mystery_Bountys.setForeground(new Color(235, 227, 194));
@@ -97,7 +104,7 @@ public class PartidasCercanas extends JFrame {
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        ConexionMySQL con = new ConexionMySQL("root", "", "sql7780337");
+        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 
         try {
             con.conectar();

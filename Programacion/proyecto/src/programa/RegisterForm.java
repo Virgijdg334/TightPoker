@@ -260,7 +260,7 @@ public class RegisterForm extends JFrame {
 		        
 		        try {
 		            // Establecer conexión a la base de datos
-		        	ConexionMySQL conn = new ConexionMySQL("root", "", "sql7780337");
+		        	ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
                     conn.conectar();
 
                     String sql = "INSERT INTO usuario (nombre, apellidos, nombreUsuario, contraseña, edad, telefono, dni, codigoPostal) VALUES ('" + nombre + "', '" + apellidos + "', '" + nombreUsuario + "', '" + contraseña + "', '" + edad + "', '" + telefono + "', '" + dni + "', '" + codigoPostal + "')";
