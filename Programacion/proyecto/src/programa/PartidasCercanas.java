@@ -3,24 +3,27 @@ package programa;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.net.URL;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 import javax.swing.BoxLayout;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
-import javax.swing.UIManager;
-import javax.swing.Icon;
-import java.awt.Graphics;
-import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.net.URL;
 
 public class PartidasCercanas extends JFrame {
 
@@ -31,7 +34,7 @@ public class PartidasCercanas extends JFrame {
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
-            	PartidasCercanas frame = new PartidasCercanas();
+                PartidasCercanas frame = new PartidasCercanas();
                 frame.setVisible(true);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -46,16 +49,6 @@ public class PartidasCercanas extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
         contentPane.setLayout(null);
-        
-        JButton botonRedondo = new JButton((Icon) null) {
-        	protected void paintComponent(Graphics g) {
-        	}
-        	protected void paintBorder(Graphics g) {
-        	}
-        	public boolean contains(int x, int y) {
-        		return false;
-        	}
-        };
 
         URL imageUrl1 = getClass().getResource("/imagenes/fotoperfil3.png");
         ImageIcon icon1 = null;
@@ -75,12 +68,10 @@ public class PartidasCercanas extends JFrame {
                 g.fillOval(0, 0, getWidth(), getHeight());
                 super.paintComponent(g);
             }
-
             @Override
             protected void paintBorder(Graphics g) {
                 g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
             }
-
             @Override
             public boolean contains(int x, int y) {
                 int radius = getWidth() / 2;
@@ -94,99 +85,109 @@ public class PartidasCercanas extends JFrame {
         botonRedondo1.setForeground(new Color(235, 227, 194));
         botonRedondo1.setFont(new Font("Arial", Font.BOLD, 16));
         getContentPane().add(botonRedondo1);
-        
-        JLabel lbl_Salario = new JLabel("Salario");
-        lbl_Salario.setForeground(new Color(235, 227, 194));
-        lbl_Salario.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
-        lbl_Salario.setBounds(79, 107, 66, 38);
-        contentPane.add(lbl_Salario);
 
         JLabel lbl_Mystery_Bountys = new JLabel("Partidas Cercanas");
         lbl_Mystery_Bountys.setForeground(new Color(235, 227, 194));
         lbl_Mystery_Bountys.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 40));
-        lbl_Mystery_Bountys.setBounds(125, 26, 295, 95);
+        lbl_Mystery_Bountys.setBounds(148, 26, 262, 95);
         contentPane.add(lbl_Mystery_Bountys);
 
-        // PANEL SCROLL CON TORNEOS (DATOS DE EJEMPLO)
         JPanel panelContenedor = new JPanel();
         panelContenedor.setBorder(null);
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        URL imageUrl = getClass().getResource("/imagenes/volver1.png");
-        ImageIcon icon = null;
+        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 
-        if (imageUrl != null) {
-            icon = new ImageIcon(imageUrl);
-            Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(image);
-        } else {
-            System.out.println("Imagen no encontrada");
-            // Puedes usar un icono por defecto si falla
-            icon = new ImageIcon(); // o poner null si lo prefieres
+        try {
+            con.conectar();
+            ResultSet rs = con.ejecutarSelect("SELECT * FROM casino");
+            int i = 0;
+            while (rs.next() && i < 6) {
+                String nombre = rs.getString("nombre");
+                String lugar = rs.getString("lugar");
+                int mesas = rs.getInt("n_mesas");
+
+
+                JPanel panelTorneo = new JPanel();
+                panelTorneo.setLayout(null);
+                panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
+                panelTorneo.setBackground(new Color(8, 68, 44));
+                panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+
+                JLabel lblNombre = new JLabel("Nombre: " + nombre);
+                lblNombre.setBounds(10, 10, 200, 20);
+                lblNombre.setForeground(Color.WHITE);
+                panelTorneo.add(lblNombre);
+
+                JLabel lblLugar = new JLabel("Lugar: " + lugar);
+                lblLugar.setBounds(10, 30, 200, 20);
+                lblLugar.setForeground(Color.WHITE);
+                panelTorneo.add(lblLugar);
+
+                JLabel lblPremio = new JLabel("Numero de mesas: " + mesas);
+                lblPremio.setBounds(10, 50, 200, 20);
+                lblPremio.setForeground(Color.WHITE);
+                panelTorneo.add(lblPremio);
+
+                URL imageUrl = getClass().getResource("/imagenes/volver1.png");
+                ImageIcon icon = null;
+
+                if (imageUrl != null) {
+                    icon = new ImageIcon(imageUrl);
+                    Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+                    icon = new ImageIcon(image);
+                } else {
+                    System.out.println("Imagen no encontrada");
+                    // Puedes usar un icono por defecto si falla
+                    icon = new ImageIcon(); // o poner null si lo prefieres
+                }
+
+                // Crear el botón redondo con el ícono cargado
+                JButton botonRedondo = new JButton(icon) {
+                    @Override
+                    protected void paintComponent(Graphics g) {
+                        g.fillOval(0, 0, getWidth(), getHeight());
+                        super.paintComponent(g);
+                    }
+
+                    @Override
+                    protected void paintBorder(Graphics g) {
+                        g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
+                    }
+
+                    @Override
+                    public boolean contains(int x, int y) {
+                        int radius = getWidth() / 2;
+                        return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
+                    }
+                };
+                botonRedondo.setBounds( 279, 312, 60, 60);
+                botonRedondo.setContentAreaFilled(false);
+                botonRedondo.setFocusPainted(false);
+                botonRedondo.setBorderPainted(false);
+                botonRedondo.setForeground(new Color(5, 66, 47));
+                botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
+                botonRedondo.addActionListener(new ActionListener(){
+                	public void actionPerformed(ActionEvent e) {
+                		Torneos T1 = new Torneos();
+                		dispose();
+                		T1.setVisible(true);
+                	}
+                });
+
+                
+                getContentPane().add(botonRedondo);
+                panelContenedor.add(panelTorneo);
+                i++;
+            }
+            rs.close();
+            con.desconectar();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
 
-        // Crear el botón redondo con el ícono cargado
-        JButton botonRedondo2 = new JButton(icon) {
-            @Override
-            protected void paintComponent(Graphics g) {
-                g.fillOval(0, 0, getWidth(), getHeight());
-                super.paintComponent(g);
-            }
-
-            @Override
-            protected void paintBorder(Graphics g) {
-                g.drawOval(0, 0, getWidth() - 1, getHeight() - 1);
-            }
-
-            @Override
-            public boolean contains(int x, int y) {
-                int radius = getWidth() / 2;
-                return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
-            }
-        };
-        botonRedondo.setBounds( 279, 312, 60, 60);
-        botonRedondo.setContentAreaFilled(false);
-        botonRedondo.setFocusPainted(false);
-        botonRedondo.setBorderPainted(false);
-        botonRedondo.setForeground(new Color(5, 66, 47));
-        botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-        getContentPane().add(botonRedondo);
-        
-        // Añadiendo paneles de torneo de ejemplo
-        for (int i = 1; i <= 6; i++) {
-            JPanel panelTorneo = new JPanel();
-            panelTorneo.setLayout(null);
-            panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
-            panelTorneo.setBackground(new Color(8, 68, 44));
-            panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
-
-            JLabel lblNombre = new JLabel("Nombre: Torneo " + i);
-            lblNombre.setBounds(10, 10, 200, 20);
-            lblNombre.setForeground(Color.WHITE);
-            panelTorneo.add(lblNombre);
-
-            JLabel lblFecha = new JLabel("Fecha: 01-01-2025");
-            lblFecha.setBounds(10, 30, 200, 20);
-            lblFecha.setForeground(Color.WHITE);
-            panelTorneo.add(lblFecha);
-
-            JLabel lblPremio = new JLabel("Premio: 100€");
-            lblPremio.setBounds(10, 50, 200, 20);
-            lblPremio.setForeground(Color.WHITE);
-            panelTorneo.add(lblPremio);
-
-            JButton btnInscribir = new JButton("Inscribir");
-            btnInscribir.setBounds(220, 55, 100, 25);
-            btnInscribir.setBackground(new Color(196, 49, 25));
-            btnInscribir.setForeground(Color.WHITE);
-            panelTorneo.add(btnInscribir);
-
-            panelContenedor.add(panelTorneo);
-        }
-
-        JScrollPane scrollPane = 
-        		new JScrollPane(panelContenedor);
+        JScrollPane scrollPane = new JScrollPane(panelContenedor);
         scrollPane.setBounds(80, 150, 470, 150);
         scrollPane.setBorder(new LineBorder(new Color(235, 227, 194), 2));
         scrollPane.getVerticalScrollBar().setUnitIncrement(16);
