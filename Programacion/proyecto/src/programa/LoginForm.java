@@ -122,7 +122,7 @@ public class LoginForm extends JFrame {
 	                   
 	                    try {
 	                    	// Crear instancia de conexión
-	                    	ConexionMySQL con = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
+	                    	ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 	                    	con.conectar(); 
 	            	        
 	                    	String query = "SELECT * FROM usuario WHERE nombreUsuario = ?";
@@ -199,7 +199,7 @@ public class LoginForm extends JFrame {
 	    boolean isAuthenticated = false;
 
 	    // Crea una instancia de tu clase de conexión
-	    ConexionMySQL conn = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
+	    ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
 
 	    try {
 	        conn.conectar();

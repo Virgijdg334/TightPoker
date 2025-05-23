@@ -105,7 +105,7 @@ public class MonsterStacks extends JFrame {
         panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
         panelContenedor.setBackground(new Color(0, 102, 51));
 
-        ConexionMySQL con = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
+        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 
         try {
             con.conectar();

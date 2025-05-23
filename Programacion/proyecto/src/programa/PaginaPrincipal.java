@@ -33,7 +33,7 @@ import javax.swing.JSeparator;
 
 public class PaginaPrincipal extends JFrame {
 
-	ConexionMySQL conn = new ConexionMySQL("sql7780337", "fhEXfwYdmM", "sql7780337");
+	ConexionMySQL conn = new ConexionMySQL("root", "password", "sql7780337");
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
@@ -140,7 +140,7 @@ public class PaginaPrincipal extends JFrame {
 		    }
 		};
 
-		botonRedondo.setBounds(213, 54, 60, 60);
+		botonRedondo.setBounds(200, 181, 60, 60);
 		botonRedondo.setContentAreaFilled(false);
 		botonRedondo.setFocusPainted(false);
 		botonRedondo.setBorderPainted(false);

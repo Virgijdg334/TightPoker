@@ -31,7 +31,7 @@ import javax.swing.JSeparator;
 
 public class Torneos extends JFrame {
 
-	ConexionMySQL bd = new ConexionMySQL("sql7774423", "sxpS4Av81l" ,"sql7774423");
+	ConexionMySQL bd = new ConexionMySQL("root", "password" ,"sql7780337");
 	
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
