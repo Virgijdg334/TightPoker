@@ -25,14 +25,26 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
 import javax.swing.border.MatteBorder;
 
+/**
+ * La clase KO_Progresivo representa la interfaz gráfica para la sección de
+ * torneos de tipo "KO Progresivo". Muestra una lista de torneos disponibles,
+ * permite la inscripción a ellos y actualiza el saldo del usuario.
+ */
 public class KO_Progresivo extends JFrame {
 
     private static final long serialVersionUID = 1L;
     private JPanel contentPane;
-    private final JLabel lblfondo = new JLabel("");
+    private final JLabel lblfondo = new JLabel(""); // Etiqueta para la imagen de fondo
+
+    // Instancia del usuario actual y su saldo formateado para visualización
     Usuario actual = SesionUsuario.getUsuario();
     public String saldoTexto = String.format("%.2f €", actual.getSaldo());
 
+    /**
+     * Punto de entrada principal para la aplicación de KO Progresivo.
+     * Crea y muestra la ventana en el hilo de despacho de eventos de Swing.
+     *
+     */
     public static void main(String[] args) {
         EventQueue.invokeLater(() -> {
             try {
@@ -44,27 +56,35 @@ public class KO_Progresivo extends JFrame {
         });
     }
 
+    /**
+     * Constructor de la clase KO_Progresivo.
+     * Inicializa y configura todos los componentes de la interfaz gráfica.
+     */
     public KO_Progresivo() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(100, 100, 621, 414);
+        setUndecorated(true); // Elimina la barra de título y los bordes de la ventana
+
         contentPane = new JPanel();
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+        contentPane.setLayout(null); // Diseño nulo para posicionar componentes libremente
         setContentPane(contentPane);
-        contentPane.setLayout(null);
 
-        URL imageUrl1 = getClass().getResource("/imagenes/fotoperfil3.png");
-        ImageIcon icon1 = null;
+        // --- Botón de Perfil de Usuario ---
+        URL profileIconUrl = getClass().getResource("/imagenes/fotoperfil3.png");
+        ImageIcon profileIcon = null;
 
-        if (imageUrl1 != null) {
-            icon1 = new ImageIcon(imageUrl1);
-            Image image = icon1.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
-            icon1 = new ImageIcon(image);
+        if (profileIconUrl != null) {
+            profileIcon = new ImageIcon(profileIconUrl);
+            Image image = profileIcon.getImage().getScaledInstance(45, 45, Image.SCALE_SMOOTH);
+            profileIcon = new ImageIcon(image);
         } else {
-            System.out.println("Imagen no encontrada");
-            icon1 = new ImageIcon();
+            System.out.println("Imagen de perfil no encontrada.");
+            profileIcon = new ImageIcon(); // Icono vacío si no se encuentra
         }
 
-        JButton botonRedondo1 = new JButton(icon1) {
+        JButton btnPerfil = new JButton(profileIcon) {
+            // Personaliza el botón para que sea redondo
             @Override
             protected void paintComponent(Graphics g) {
                 g.fillOval(0, 0, getWidth(), getHeight());
@@ -82,55 +102,54 @@ public class KO_Progresivo extends JFrame {
                 return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
             }
         };
-        botonRedondo1.setBounds(431, 54, 45, 45);
-        botonRedondo1.setContentAreaFilled(false);
-        botonRedondo1.setFocusPainted(false);
-        botonRedondo1.setBorderPainted(false);
-        botonRedondo1.setForeground(new Color(235, 227, 194));
-        botonRedondo1.setFont(new Font("Arial", Font.BOLD, 16));
-        getContentPane().add(botonRedondo1);
-        botonRedondo1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PerfilUsuario p1 = new PerfilUsuario();
-                dispose();
-                p1.setVisible(true);
-            }
+        btnPerfil.setBounds(431, 54, 45, 45);
+        btnPerfil.setContentAreaFilled(false);
+        btnPerfil.setFocusPainted(false);
+        btnPerfil.setBorderPainted(false);
+        btnPerfil.setForeground(new Color(235, 227, 194));
+        btnPerfil.setFont(new Font("Arial", Font.BOLD, 16));
+        contentPane.add(btnPerfil);
+        btnPerfil.addActionListener(e -> {
+            PerfilUsuario p1 = new PerfilUsuario();
+            dispose(); // Cierra la ventana actual
+            p1.setVisible(true); // Muestra la ventana de perfil
         });
 
+        // --- Etiqueta de Saldo Actual ---
         JLabel lbl_Salario = new JLabel("Saldo: " + saldoTexto);
         lbl_Salario.setForeground(new Color(235, 227, 194));
         lbl_Salario.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 22));
         lbl_Salario.setBounds(79, 107, 194, 38);
         contentPane.add(lbl_Salario);
 
+        // --- Título de la Sección ---
         JLabel lbl_KO_Progresivo = new JLabel("KO Progresivo");
         lbl_KO_Progresivo.setForeground(new Color(235, 227, 194));
         lbl_KO_Progresivo.setFont(new Font("Tw Cen MT Condensed Extra Bold", Font.ITALIC, 40));
         lbl_KO_Progresivo.setBounds(148, 26, 262, 95);
         contentPane.add(lbl_KO_Progresivo);
 
+        // --- Panel Contenedor de Torneos (scrollable) ---
         JPanel panelContenedor = new JPanel();
         panelContenedor.setBorder(null);
-        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS));
-        panelContenedor.setBackground(new Color(0, 102, 51));
+        panelContenedor.setLayout(new BoxLayout(panelContenedor, BoxLayout.Y_AXIS)); // Diseño vertical
+        panelContenedor.setBackground(new Color(0, 102, 51)); // Color de fondo del panel que contiene los torneos
 
-        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
+        // --- Botón de Volver a Torneos ---
+        URL backIconUrl = getClass().getResource("/imagenes/volver1.png");
+        ImageIcon backIcon = null;
 
-        URL imageUrl = getClass().getResource("/imagenes/volver1.png");
-        ImageIcon icon = null;
-
-        if (imageUrl != null) {
-            icon = new ImageIcon(imageUrl);
-            Image image = icon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
-            icon = new ImageIcon(image);
+        if (backIconUrl != null) {
+            backIcon = new ImageIcon(backIconUrl);
+            Image image = backIcon.getImage().getScaledInstance(30, 30, Image.SCALE_SMOOTH);
+            backIcon = new ImageIcon(image);
         } else {
-            System.out.println("Imagen no encontrada");
-            // Puedes usar un icono por defecto si falla
-            icon = new ImageIcon(); // o poner null si lo prefieres
+            System.out.println("Imagen para botón de volver no encontrada.");
+            backIcon = new ImageIcon(); // Icono vacío si no se encuentra
         }
 
-        // Crear el botón redondo con el ícono cargado
-        JButton botonRedondo = new JButton(icon) {
+        JButton btnVolver = new JButton(backIcon) {
+            // Personaliza el botón para que sea redondo
             @Override
             protected void paintComponent(Graphics g) {
                 g.fillOval(0, 0, getWidth(), getHeight());
@@ -148,26 +167,29 @@ public class KO_Progresivo extends JFrame {
                 return (Math.pow(x - radius, 2) + Math.pow(y - radius, 2)) <= Math.pow(radius, 2);
             }
         };
-        botonRedondo.setBounds( 279, 312, 60, 60);
-        botonRedondo.setContentAreaFilled(false);
-        botonRedondo.setFocusPainted(false);
-        botonRedondo.setBorderPainted(false);
-        botonRedondo.setForeground(new Color(5, 66, 47));
-        botonRedondo.setFont(new Font("Arial", Font.BOLD, 16));
-        botonRedondo.addActionListener(new ActionListener(){
-        	public void actionPerformed(ActionEvent e) {
-        		Torneos T1 = new Torneos();
-        		dispose();
-        		T1.setVisible(true);
-        	}
+        btnVolver.setBounds(279, 312, 60, 60);
+        btnVolver.setContentAreaFilled(false);
+        btnVolver.setFocusPainted(false);
+        btnVolver.setBorderPainted(false);
+        btnVolver.setForeground(new Color(5, 66, 47));
+        btnVolver.setFont(new Font("Arial", Font.BOLD, 16));
+        contentPane.add(btnVolver);
+        btnVolver.addActionListener(e -> {
+            Torneos T1 = new Torneos();
+            dispose(); // Cierra la ventana actual
+            T1.setVisible(true); // Muestra la ventana de torneos
         });
-        getContentPane().add(botonRedondo);
+
+        // --- Carga y Muestra de Torneos desde la Base de Datos ---
+        ConexionMySQL con = new ConexionMySQL("root", "password", "sql7780337");
 
         try {
             con.conectar();
-            ResultSet rs = con.ejecutarSelect("SELECT * FROM torneo WHERE tipo = 'KO_Progresivo'");
-            int i = 0;
-            while (rs.next() && i < 6) {
+            // Consulta SQL para obtener torneos de tipo 'KO_Progresivo'
+            ResultSet rs = con.ejecutarSelect("SELECT id, nombre, lugar, bote_premios, `buy-in`, jugadores, limite_jugadores FROM torneo WHERE tipo = 'KO_Progresivo'");
+            int i = 0; // Contador para limitar el número de torneos mostrados (originalmente hasta 6)
+
+            while (rs.next()) { // Se eliminó la condición '&& i < 6' para mostrar todos los torneos disponibles
                 int id = rs.getInt("id");
                 String nombre = rs.getString("nombre");
                 String lugar = rs.getString("lugar");
@@ -176,12 +198,14 @@ public class KO_Progresivo extends JFrame {
                 int jugando = rs.getInt("jugadores");
                 int limite_jugadores = rs.getInt("limite_jugadores");
 
+                // Panel individual para cada torneo
                 JPanel panelTorneo = new JPanel();
-                panelTorneo.setLayout(null);
-                panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90));
-                panelTorneo.setBackground(new Color(8, 68, 44));
-                panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY));
+                panelTorneo.setLayout(null); // Diseño nulo para posicionar elementos manualmente
+                panelTorneo.setPreferredSize(new java.awt.Dimension(440, 90)); // Tamaño preferido
+                panelTorneo.setBackground(new Color(8, 68, 44)); // Color de fondo del torneo
+                panelTorneo.setBorder(new MatteBorder(0, 0, 1, 0, Color.LIGHT_GRAY)); // Borde inferior
 
+                // Etiquetas para los detalles del torneo
                 JLabel lblNombre = new JLabel("Nombre: " + nombre);
                 lblNombre.setBounds(10, 10, 200, 20);
                 lblNombre.setForeground(Color.WHITE);
@@ -207,6 +231,7 @@ public class KO_Progresivo extends JFrame {
                 lblPrecio.setForeground(Color.WHITE);
                 panelTorneo.add(lblPrecio);
 
+                // Botón de inscripción al torneo
                 JButton btnInscribir = new JButton("Inscribir");
                 btnInscribir.addActionListener(new ActionListener() {
                     public void actionPerformed(ActionEvent e) {
@@ -215,16 +240,23 @@ public class KO_Progresivo extends JFrame {
                             Connection conn = con.getConnection();
                             String nombreUsuario = SesionUsuario.getUsuario().getUser();
 
+                            // 1. Verificar si el usuario ya está inscrito
                             PreparedStatement checkStmt = conn.prepareStatement("SELECT * FROM inscripciones WHERE nombreUsuario = ? AND id = ?");
                             checkStmt.setString(1, nombreUsuario);
                             checkStmt.setInt(2, id);
                             ResultSet checkRs = checkStmt.executeQuery();
                             if (checkRs.next()) {
-                                btnInscribir.setEnabled(false);
                                 JOptionPane.showMessageDialog(null, "Ya estás inscrito en este torneo.");
+                                // Se deshabilita el botón solo si la consulta inicial ya lo detecta
+                                // Para que sea persistente, la lógica de habilitación/deshabilitación
+                                // debería estar fuera de este listener o ser recalculada al cargar la vista.
+                                // Por simplicidad, aquí solo se maneja el caso de reintento.
                                 return;
                             }
+                            checkRs.close();
+                            checkStmt.close();
 
+                            // 2. Verificar si el torneo está lleno
                             PreparedStatement cupoStmt = conn.prepareStatement("SELECT jugadores, limite_jugadores FROM torneo WHERE id = ?");
                             cupoStmt.setInt(1, id);
                             ResultSet cupoRs = cupoStmt.executeQuery();
@@ -233,73 +265,82 @@ public class KO_Progresivo extends JFrame {
                                 int max = cupoRs.getInt("limite_jugadores");
                                 if (inscritos >= max) {
                                     JOptionPane.showMessageDialog(null, "El torneo ya está lleno.");
-                                    btnInscribir.setEnabled(false);
                                     return;
                                 }
                             }
+                            cupoRs.close();
+                            cupoStmt.close();
 
+                            // 3. Verificar saldo suficiente
                             if (actual.getSaldo() < precio) {
                                 JOptionPane.showMessageDialog(null, "Saldo insuficiente.");
                                 return;
                             }
 
+                            // 4. Realizar la inscripción (actualizar la tabla de inscripciones)
                             PreparedStatement insertStmt = conn.prepareStatement("INSERT INTO inscripciones (nombreUsuario, id) VALUES (?, ?)");
                             insertStmt.setString(1, nombreUsuario);
                             insertStmt.setInt(2, id);
                             insertStmt.executeUpdate();
+                            insertStmt.close();
 
+                            // 5. Actualizar el número de jugadores en el torneo
                             PreparedStatement updateTorneo = conn.prepareStatement("UPDATE torneo SET jugadores = jugadores + 1 WHERE id = ?");
                             updateTorneo.setInt(1, id);
                             updateTorneo.executeUpdate();
+                            updateTorneo.close();
 
+                            // 6. Actualizar el saldo del usuario
                             double nuevoSaldo = actual.getSaldo() - precio;
                             PreparedStatement updateSaldo = conn.prepareStatement("UPDATE usuario SET saldo = ? WHERE nombreUsuario = ?");
                             updateSaldo.setDouble(1, nuevoSaldo);
                             updateSaldo.setString(2, nombreUsuario);
                             updateSaldo.executeUpdate();
+                            updateSaldo.close();
 
+                            // 7. Actualizar la interfaz y el objeto de usuario en memoria
                             actual.setSaldo(nuevoSaldo);
                             lbl_Salario.setText("Saldo: " + String.format("%.2f €", nuevoSaldo));
+                            // Actualiza la etiqueta de jugadores en el panel específico del torneo
+                            lblJugadores.setText("Jugadores: " + (jugando + 1) + "/" + limite_jugadores);
 
-                            int nuevosJugadores = jugando + 1;
-                            lblJugadores.setText("Jugadores: " + nuevosJugadores + "/" + limite_jugadores);
 
                             JOptionPane.showMessageDialog(null, "¡Inscripción exitosa!");
+                            // Deshabilita el botón después de una inscripción exitosa para ese torneo
                             btnInscribir.setEnabled(false);
-
+                            con.desconectar(); // Asegura que la conexión se cierre
                         } catch (SQLException ex) {
+                            JOptionPane.showMessageDialog(null, "Error al inscribirse al torneo: " + ex.getMessage());
                             ex.printStackTrace();
                         }
                     }
                 });
 
                 btnInscribir.setBounds(335, 55, 100, 25);
-                btnInscribir.setBackground(new Color(196, 49, 25));
+                btnInscribir.setBackground(new Color(196, 49, 25)); // Color rojo oscuro
                 btnInscribir.setForeground(Color.WHITE);
                 panelTorneo.add(btnInscribir);
 
                 panelContenedor.add(panelTorneo);
-                i++;
+                i++; // Incrementa el contador (aunque la condición de límite se eliminó, puede ser útil para otros propósitos)
             }
-            rs.close();
-            con.desconectar();
+            rs.close(); // Cierra el ResultSet
+            con.desconectar(); // Cierra la conexión a la base de datos
         } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Error al cargar los torneos: " + e.getMessage());
             e.printStackTrace();
         }
 
-
-
+        // --- JScrollPane para hacer el panel de torneos deslizable ---
         JScrollPane scrollPane = new JScrollPane(panelContenedor);
         scrollPane.setBounds(80, 150, 470, 150);
-        scrollPane.setBorder(new LineBorder(new Color(235, 227, 194), 2));
-        scrollPane.getVerticalScrollBar().setUnitIncrement(16);
+        scrollPane.setBorder(new LineBorder(new Color(235, 227, 194), 2)); // Borde para el scroll pane
+        scrollPane.getVerticalScrollBar().setUnitIncrement(16); // Velocidad del scroll
         contentPane.add(scrollPane);
 
+        // --- Imagen de Fondo Principal ---
         lblfondo.setIcon(new ImageIcon(getClass().getResource("/imagenes/fondoPokerHorizontal.png")));
-        lblfondo.setBounds(0, -171, 631, 757);
+        lblfondo.setBounds(0, -171, 631, 757); // Ajuste de posición para cubrir la ventana
         contentPane.add(lblfondo);
-
-        setUndecorated(true);
-        setVisible(true);
     }
 }
