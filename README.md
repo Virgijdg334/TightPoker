@@ -1,4 +1,8 @@
 TIGHTPOKER - Gestión de Torneos de Casino
+Hecho por:
+- Virgilio Jesus Dominguez Gonzalez
+- Jose Antonio Jimenez Bernaza
+- Sergio Ponce Castro
 ==========================================
 
 Proyecto desarrollado para las asignaturas de:
