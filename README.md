@@ -1,5 +1,4 @@
 TIGHTPOKER - Gestión de Torneos de Casino
-
 ==========================================
 
 Proyecto desarrollado para las asignaturas de:
@@ -76,3 +75,12 @@ Estructura de la Base de Datos (SQL)
 4. Tabla: INSCRIPCIONES
    - nombreUsuario    → Usuario inscrito
    - id               → ID del torneo al que se ha inscrito
+
+------------------------------------------------------------
+Notas Finales
+------------------------------------------------------------
+
+- El programa bloquea el acceso a menores de edad.
+- Las operaciones de saldo son ficticias, no hay integración bancaria real.
+- Se planean futuras mejoras como el uso del campo "fecha" y "bote_premios".
+
