@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: db
--- Tiempo de generación: 24-05-2025 a las 09:58:35
+-- Tiempo de generación: 24-05-2025 a las 10:17:11
 -- Versión del servidor: 5.7.44
 -- Versión de PHP: 8.2.28
 
@@ -38,7 +38,7 @@ DELIMITER ;
 --
 
 CREATE TABLE `casino` (
-  `nombre` varchar(50) NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `lugar` varchar(50) NOT NULL,
   `n_mesas` int(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -63,7 +63,7 @@ INSERT INTO `casino` (`nombre`, `lugar`, `n_mesas`) VALUES
 --
 
 CREATE TABLE `inscripciones` (
-  `nombreUsuario` varchar(30) NOT NULL,
+  `nombreUsuario` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `id` int(5) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -102,14 +102,14 @@ INSERT INTO `log_registro` (`username`, `accion`, `fecha`) VALUES
 
 CREATE TABLE `torneo` (
   `id` int(11) NOT NULL,
-  `nombre` varchar(50) NOT NULL,
-  `lugar` varchar(50) NOT NULL,
+  `nombre` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
+  `lugar` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL,
   `buy-in` int(10) NOT NULL COMMENT 'Pago para acceder',
   `jugadores` int(10) NOT NULL COMMENT 'Jugadores inscritos',
-  `fecha` varchar(20) NOT NULL COMMENT 'Fecha limite',
+  `fecha` varchar(20) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL COMMENT 'Fecha limite',
   `bote_premios` int(10) NOT NULL COMMENT 'Premio económico',
   `limite_jugadores` int(10) NOT NULL COMMENT 'Jugadores max',
-  `tipo` varchar(30) NOT NULL COMMENT 'Tipo de juego'
+  `tipo` varchar(30) CHARACTER SET utf8mb4 COLLATE utf8mb4_spanish_ci NOT NULL COMMENT 'Tipo de juego'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
