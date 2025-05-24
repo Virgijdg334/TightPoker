@@ -88,3 +88,13 @@ Notas Finales
 - El programa bloquea el acceso a menores de edad.  
 - Las operaciones de saldo son ficticias, no hay integración bancaria real.  
 - Se planean futuras mejoras como el uso del campo "fecha" y "bote_premios".
+
+- ⚠ El apartado de pruebas unitarias correspondiente a la asignatura de *Entorno de Desarrollo* 
+  se encuentra dentro de la carpeta de *Programación* del proyecto.
+
+- ⚠ La aplicación **no funcionará** correctamente si no se ha iniciado sesión.  
+  Es obligatorio ejecutar el formulario `LoginForm` antes de cualquier otra funcionalidad.
+
+- ⚠ En caso de que las pruebas unitarias no se ejecuten correctamente:  
+  - Asegúrate de haber añadido las dependencias de `JUnit` (recomendado JUnit 5).  
+  - Elimina el archivo `module-info.java` del proyecto si genera conflictos con los imports o dependencias.
