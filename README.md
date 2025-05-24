@@ -85,7 +85,8 @@ Estructura de la Base de Datos (SQL)
 Notas Finales
 ------------------------------------------------------------
 
-- El programa bloquea el acceso a menores de edad.  
+- El programa bloquea el acceso a menores de edad.
+- La pagina inicial es el archivo `PokerGUI`.
 - Las operaciones de saldo son ficticias, no hay integración bancaria real.  
 - Se planean futuras mejoras como el uso del campo "fecha" y "bote_premios".
 
